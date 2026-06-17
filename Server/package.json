@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "This is the client projects for a furniture business",
+  "keywords": [
+    "nodejs",
+    "tailwindcss",
+    "reactjs",
+    "vite",
+    "expressjs",
+    "mongodb"
+  ],
+  "license": "ISC",
+  "author": "Subhas Mondal",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
