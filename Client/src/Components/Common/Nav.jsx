@@ -7,6 +7,15 @@ import {
   mobileMenuVariants,
   accordionVariants,
   buttonTap,
+  navLinkVariants,
+  navContainerVariants,
+  navItemSlide,
+  buttonGroupEntrance,
+  dropdownItemVariants,
+  mobileMenuItemVariants,
+  badgeBounce,
+  underlineSlide,
+  logoEntrance,
 } from "../../Animations/Animations";
 
 const Nav = () => {
@@ -59,8 +68,11 @@ const Nav = () => {
           surface, even on pages with no hero image — keeps the nav looking
           and behaving identically across every route */}
       {!isScrolled && (
-        <div
+        <motion.div
           className="fixed top-0 left-0 right-0 h-36 z-40 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{
             background:
               "linear-gradient(180deg, rgba(30,90,105,0.85) 0%, rgba(30,90,105,0.45) 55%, rgba(30,90,105,0) 100%)",
@@ -85,7 +97,12 @@ const Nav = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center justify-between h-18">
             {/* Logo */}
-            <motion.div whileTap={buttonTap}>
+            <motion.div
+              variants={logoEntrance}
+              initial="hidden"
+              animate="visible"
+              whileTap={buttonTap}
+            >
               <Link
                 to="/"
                 className="font-serif text-2xl font-medium tracking-wide text-white"
@@ -95,8 +112,11 @@ const Nav = () => {
             </motion.div>
 
             {/* Desktop Nav */}
-            <nav
+            <motion.nav
               className="hidden md:flex items-center gap-1 rounded-full px-2 py-1.5"
+              variants={navContainerVariants}
+              initial="hidden"
+              animate="visible"
               style={{
                 backgroundColor: "var(--color-brand-overlay)",
                 border: "1px solid var(--color-brand-border-glass)",
@@ -142,10 +162,15 @@ const Nav = () => {
                   </NavLink>
                 );
               })}
-            </nav>
+            </motion.nav>
 
             {/* Right actions */}
-            <div className="hidden md:flex items-center gap-2">
+            <motion.div
+              variants={buttonGroupEntrance}
+              initial="hidden"
+              animate="visible"
+              className="hidden md:flex items-center gap-2"
+            >
               <motion.button
                 whileTap={buttonTap}
                 className="relative p-2.5 rounded-full border transition-colors duration-300"
@@ -162,12 +187,15 @@ const Nav = () => {
                 }
               >
                 <CartIcon />
-                <span
+                <motion.span
+                  variants={badgeBounce}
+                  initial="hidden"
+                  animate="visible"
                   className="absolute -top-0.5 -right-0.5 w-4 h-4 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
                   style={{ backgroundColor: "var(--color-brand-accent)" }}
                 >
                   2
-                </span>
+                </motion.span>
               </motion.button>
 
               <motion.button
@@ -187,7 +215,7 @@ const Nav = () => {
               >
                 <UserIcon />
               </motion.button>
-            </div>
+            </motion.div>
 
             {/* Mobile hamburger */}
             <motion.button
@@ -243,12 +271,14 @@ const Nav = () => {
                   borderColor: "rgba(255,255,255,0.12)",
                 }}
               >
-                <Link
-                  to="/"
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  Home
-                </Link>
+                <motion.div variants={mobileMenuItemVariants} initial="hidden" animate="visible">
+                  <Link
+                    to="/"
+                    className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                  >
+                    Home
+                  </Link>
+                </motion.div>
 
                 <MobileAccordion
                   label="Shop"
@@ -270,14 +300,21 @@ const Nav = () => {
                   }
                 />
 
-                {["About Us", "Contact Us"].map((label) => (
-                  <Link
+                {["About Us", "Contact Us"].map((label, i) => (
+                  <motion.div
                     key={label}
-                    to={`/${label.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="block px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                    variants={mobileMenuItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    transition={{ delay: (i + 2) * 0.05 }}
                   >
-                    {label}
-                  </Link>
+                    <Link
+                      to={`/${label.toLowerCase().replace(/\s+/g, "-")}`}
+                      className="block px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                    >
+                      {label}
+                    </Link>
+                  </motion.div>
                 ))}
 
                 <div className="pt-3 border-t border-white/10 flex gap-2">
@@ -311,7 +348,7 @@ const Nav = () => {
 
 /* ── NavLink ── */
 const NavLink = ({ to, active, children }) => (
-  <motion.div whileTap={buttonTap}>
+  <motion.div variants={navItemSlide} whileTap={buttonTap}>
     <Link
       to={to}
       className="px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 inline-block"
@@ -366,10 +403,13 @@ const DropdownMenu = ({
     onMouseEnter={() => setOpen(true)}
     onMouseLeave={() => setOpen(false)}
   >
-    <button className="flex items-center gap-1 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 text-white/85 hover:text-white hover:bg-white/10">
+    <motion.button
+      className="flex items-center gap-1 px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200 text-white/85 hover:text-white hover:bg-white/10"
+      whileTap={buttonTap}
+    >
       {label}
       <ChevronDown open={open} />
-    </button>
+    </motion.button>
 
     <AnimatePresence>
       {open && (
@@ -386,9 +426,10 @@ const DropdownMenu = ({
             {items.map((item, i) => (
               <motion.div
                 key={item}
-                initial={{ opacity: 0, x: -6 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.04, duration: 0.2 }}
+                variants={dropdownItemVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: i * 0.03 }}
               >
                 <Link
                   to={buildPath(item)}
@@ -431,14 +472,21 @@ const MobileAccordion = ({ label, items, open, setOpen, buildPath }) => (
           exit="exit"
           className="overflow-hidden ml-3 mt-1 space-y-0.5"
         >
-          {items.map((item) => (
-            <Link
+          {items.map((item, i) => (
+            <motion.div
               key={item}
-              to={buildPath(item)}
-              className="block px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              variants={mobileMenuItemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: i * 0.05 }}
             >
-              {item}
-            </Link>
+              <Link
+                to={buildPath(item)}
+                className="block px-3 py-2 text-sm text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              >
+                {item}
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       )}
