@@ -12,6 +12,14 @@
   --color-brand-nav-bg: rgba(255, 255, 255, 0.95);
   --color-brand-overlay: rgba(255, 255, 255, 0.1);
   --color-brand-border-glass: rgba(255, 255, 255, 0.3);
+
+  /* Footer surfaces */
+  --color-brand-footer-bg: #0c2c3c;
+  --color-brand-footer-surface: #173f4f;
+  --color-brand-footer-border: rgba(255, 255, 255, 0.08);
+  --color-brand-footer-text: #a8c4cc;
+  --color-brand-footer-text-hover: #ffffff;
+  --color-brand-footer-heading: #ffffff;
 }
 
 html {

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fadeUp, staggerContainer, navItemSlide } from "../../Animations/Animations";
 
 const Footer = () => {
   const footerLinks = {
@@ -16,25 +18,44 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-stone-900 text-stone-300">
+    <footer
+      style={{
+        backgroundColor: "var(--color-brand-footer-bg)",
+        color: "var(--color-brand-footer-text)",
+      }}
+    >
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <Link
-              to="/"
-              className="font-serif text-2xl font-medium text-white tracking-wide"
+          <motion.div
+            variants={staggerContainer(0.1, 0.1)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="lg:col-span-2"
+          >
+            <motion.div variants={navItemSlide}>
+              <Link
+                to="/"
+                className="font-serif text-2xl font-medium tracking-wide inline-block"
+                style={{
+                  color: "var(--color-brand-footer-heading)",
+                }}
+              >
+                {import.meta.env.VITE_APP_NAME}
+              </Link>
+            </motion.div>
+            <motion.p
+              variants={navItemSlide}
+              className="mt-4 text-sm leading-relaxed max-w-xs"
             >
-              Bloomora
-            </Link>
-            <p className="mt-4 text-sm text-stone-400 leading-relaxed max-w-xs">
               Thoughtfully crafted furniture that transforms houses into homes.
               Quality pieces built to last a lifetime.
-            </p>
+            </motion.p>
 
             {/* Social Links */}
-            <div className="flex gap-3 mt-6">
+            <motion.div variants={navItemSlide} className="flex gap-3 mt-6">
               {[
                 {
                   label: "Instagram",
@@ -49,10 +70,16 @@ const Footer = () => {
                   icon: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z",
                 },
               ].map(({ label, icon }) => (
-                <button
+                <motion.button
                   key={label}
                   aria-label={label}
-                  className="w-9 h-9 rounded-full border border-stone-700 flex items-center justify-center text-stone-400 hover:border-stone-500 hover:text-white transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="w-9 h-9 rounded-full border flex items-center justify-center transition-colors"
+                  style={{
+                    borderColor: "var(--color-brand-footer-border)",
+                    color: "var(--color-brand-footer-text)",
+                  }}
                 >
                   <svg
                     className="w-4 h-4"
@@ -61,15 +88,27 @@ const Footer = () => {
                   >
                     <path d={icon} />
                   </svg>
-                </button>
+                </motion.button>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Link Columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+          {Object.entries(footerLinks).map(([category, links], categoryIndex) => (
+            <motion.div
+              key={category}
+              variants={navItemSlide}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: categoryIndex * 0.05 }}
+            >
+              <h4
+                className="text-sm font-semibold uppercase tracking-wider mb-4"
+                style={{
+                  color: "var(--color-brand-footer-heading)",
+                }}
+              >
                 {category}
               </h4>
               <ul className="space-y-3">
@@ -77,25 +116,48 @@ const Footer = () => {
                   <li key={link}>
                     <Link
                       to={`/${link.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and")}`}
-                      className="text-sm text-stone-400 hover:text-white transition-colors"
+                      className="text-sm transition-colors inline-block"
+                      style={{
+                        color: "var(--color-brand-footer-text)",
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.color =
+                          "var(--color-brand-footer-text-hover)")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.color =
+                          "var(--color-brand-footer-text)")
+                      }
                     >
                       {link}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Newsletter */}
-        <div className="mt-14 pt-10 border-t border-stone-800">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="mt-14 pt-10"
+          style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}
+        >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <h4 className="text-white font-semibold text-base">
+              <h4
+                className="font-semibold text-base"
+                style={{
+                  color: "var(--color-brand-footer-heading)",
+                }}
+              >
                 Stay in the loop
               </h4>
-              <p className="text-sm text-stone-400 mt-1">
+              <p className="text-sm mt-1">
                 New arrivals, exclusive offers, and design inspiration.
               </p>
             </div>
@@ -103,39 +165,54 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 rounded-xl bg-stone-800 border border-stone-700 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-orange-500 transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
+                style={{
+                  backgroundColor: "var(--color-brand-footer-surface)",
+                  border: "1px solid var(--color-brand-footer-border)",
+                  color: "var(--color-brand-footer-heading)",
+                }}
               />
-              <button className="px-5 py-2.5 rounded-xl bg-orange-500 text-white text-sm font-medium hover:bg-orange-600 transition-colors whitespace-nowrap">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap"
+                style={{
+                  backgroundColor: "var(--color-brand-accent)",
+                  color: "white",
+                }}
+              >
                 Subscribe
-              </button>
+              </motion.button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-stone-800">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
-          <p>© {new Date().getFullYear()} Bloomora. All rights reserved.</p>
+      <div style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <p>© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All rights reserved.</p>
           <div className="flex gap-5">
-            <Link
-              to="/privacy-policy"
-              className="hover:text-stone-300 transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              to="/terms-of-service"
-              className="hover:text-stone-300 transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              to="/cookie-policy"
-              className="hover:text-stone-300 transition-colors"
-            >
-              Cookie Policy
-            </Link>
+            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+              (link) => (
+                <Link
+                  key={link}
+                  to={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
+                  className="transition-colors"
+                  style={{ color: "var(--color-brand-footer-text)" }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color =
+                      "var(--color-brand-footer-text-hover)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color =
+                      "var(--color-brand-footer-text)")
+                  }
+                >
+                  {link}
+                </Link>
+              )
+            )}
           </div>
         </div>
       </div>
