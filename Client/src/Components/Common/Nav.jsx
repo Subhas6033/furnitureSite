@@ -94,8 +94,8 @@ const Nav = () => {
             "background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between h-18">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="flex items-center justify-between h-14 sm:h-18">
             {/* Logo */}
             <motion.div
               variants={logoEntrance}
@@ -265,7 +265,7 @@ const Nav = () => {
             >
               {/* teal-tinted panel to match the nav */}
               <div
-                className="border-t px-6 py-4 space-y-1"
+                className="border-t px-4 sm:px-6 py-4 space-y-1"
                 style={{
                   backgroundColor: "rgba(25, 78, 92, 0.97)",
                   borderColor: "rgba(255,255,255,0.12)",

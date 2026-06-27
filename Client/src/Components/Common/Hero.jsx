@@ -24,12 +24,12 @@ const Hero = () => (
     />
 
     <motion.div
-      className="relative z-10 text-center text-white px-6 pt-24"
+      className="relative z-10 text-center text-white px-4 sm:px-6 pt-20 sm:pt-24 pb-12"
       initial="hidden"
       animate="visible"
       variants={staggerContainer(0.12, 0.15)}
     >
-      <h1 className="font-serif text-5xl md:text-7xl font-medium mb-6 leading-[1.08]">
+      <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium mb-4 sm:mb-6 leading-[1.08]">
         <motion.span variants={fadeUp} className="block">
           Comfort Starts with the
         </motion.span>
@@ -40,7 +40,7 @@ const Hero = () => (
 
       <motion.p
         variants={fadeUp}
-        className="text-white/70 text-lg max-w-md mx-auto"
+        className="text-white/70 text-base sm:text-lg max-w-sm sm:max-w-md mx-auto"
       >
         Thoughtfully crafted pieces for every room in your home.
       </motion.p>
