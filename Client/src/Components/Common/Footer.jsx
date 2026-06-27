@@ -25,8 +25,8 @@ const Footer = () => {
       }}
     >
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-10">
           {/* Brand Column */}
           <motion.div
             variants={staggerContainer(0.1, 0.1)}
@@ -144,10 +144,10 @@ const Footer = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-14 pt-10"
+          className="mt-10 sm:mt-14 pt-8 sm:pt-10"
           style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}
         >
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
             <div>
               <h4
                 className="font-semibold text-base"
@@ -161,11 +161,11 @@ const Footer = () => {
                 New arrivals, exclusive offers, and design inspiration.
               </p>
             </div>
-            <div className="flex gap-2 max-w-sm w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row gap-2 max-w-full sm:max-w-sm lg:max-w-md w-full lg:w-auto">
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors w-full"
                 style={{
                   backgroundColor: "var(--color-brand-footer-surface)",
                   border: "1px solid var(--color-brand-footer-border)",
@@ -190,9 +190,9 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-xs">
           <p>© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All rights reserved.</p>
-          <div className="flex gap-5">
+          <div className="flex flex-wrap gap-3 sm:gap-5 justify-center sm:justify-end">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
               (link) => (
                 <Link
