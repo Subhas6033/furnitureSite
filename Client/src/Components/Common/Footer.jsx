@@ -5,7 +5,7 @@ const Footer = () => {
   const footerLinks = {
     Shop: ["Living Room", "Bedroom", "Dining Room", "Office", "Outdoor"],
     Furniture: ["Sofas & Sectionals", "Chairs", "Tables", "Beds", "Storage"],
-    Company: ["About Us", "Blog", "Careers", "Press", "Contact Us"],
+    Company: ["About Us", "Careers", "Press", "Contact Us"],
     Support: [
       "FAQ",
       "Shipping & Returns",

@@ -48,195 +48,65 @@ const Nav = () => {
   // transparent on hero → brand teal glass once scrolled — never white
   const navBg = isScrolled ? "rgba(30, 90, 105, 0.92)" : "transparent";
 
-  const navBorder = isScrolled ? "1px solid rgba(255,255,255,0.12)" : "none";
+  const navBorder = "none";
 
   // always white text — on hero (transparent bg) and on teal bg both are dark
   const onDark = true;
 
   return (
-    <motion.header
-      className="fixed top-0 left-0 right-0 z-50"
-      initial="hidden"
-      animate="visible"
-      variants={fadeDown}
-      style={{
-        backgroundColor: navBg,
-        backdropFilter: isScrolled ? "blur(14px)" : "none",
-        borderBottom: navBorder,
-        boxShadow: isScrolled ? "0 2px 16px rgba(30,90,105,0.18)" : "none",
-        transition:
-          "background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="flex items-center justify-between h-18">
-          {/* Logo */}
-          <motion.div whileTap={buttonTap}>
-            <Link
-              to="/"
-              className="font-serif text-2xl font-medium tracking-wide text-white"
-            >
-              Bloomora
-            </Link>
-          </motion.div>
+    <>
+      {/* Backdrop strip so the transparent nav state always sits on a dark
+          surface, even on pages with no hero image — keeps the nav looking
+          and behaving identically across every route */}
+      {!isScrolled && (
+        <div
+          className="fixed top-0 left-0 right-0 h-36 z-40 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(30,90,105,0.85) 0%, rgba(30,90,105,0.45) 55%, rgba(30,90,105,0) 100%)",
+          }}
+        />
+      )}
 
-          {/* Desktop Nav */}
-          <nav
-            className="hidden md:flex items-center gap-1 rounded-full px-2 py-1.5"
-            style={{
-              backgroundColor: "var(--color-brand-overlay)",
-              border: "1px solid var(--color-brand-border-glass)",
-            }}
-          >
-            <NavLink to="/" active={isActive("/")} onDark={onDark}>
-              Home
-            </NavLink>
-
-            <DropdownMenu
-              label="Shop"
-              items={shopItems}
-              open={shopOpen}
-              setOpen={setShopOpen}
-              buildPath={(item) =>
-                `/shop/${item.toLowerCase().replace(/\s+/g, "-")}`
-              }
-              onDark={onDark}
-            />
-
-            <DropdownMenu
-              label="Furniture"
-              items={furnitureItems}
-              open={furnitureOpen}
-              setOpen={setFurnitureOpen}
-              buildPath={(item) =>
-                `/furniture/${item.toLowerCase().replace(/\s+/g, "-")}`
-              }
-              onDark={onDark}
-              menuWidth="w-52"
-            />
-
-            {["About Us", "Blog", "Contact Us"].map((label) => {
-              const path = `/${label.toLowerCase().replace(/\s+/g, "-")}`;
-              return (
-                <NavLink
-                  key={label}
-                  to={path}
-                  active={isActive(path)}
-                  onDark={onDark}
-                >
-                  {label}
-                </NavLink>
-              );
-            })}
-          </nav>
-
-          {/* Right actions */}
-          <div className="hidden md:flex items-center gap-2">
-            <motion.button
-              whileTap={buttonTap}
-              className="relative p-2.5 rounded-full border transition-colors duration-300"
-              style={{
-                borderColor: "rgba(255,255,255,0.30)",
-                color: "rgba(255,255,255,0.9)",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  "rgba(255,255,255,0.10)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "transparent")
-              }
-            >
-              <CartIcon />
-              <span
-                className="absolute -top-0.5 -right-0.5 w-4 h-4 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
-                style={{ backgroundColor: "var(--color-brand-accent)" }}
-              >
-                2
-              </span>
-            </motion.button>
-
-            <motion.button
-              whileTap={buttonTap}
-              className="p-2.5 rounded-full border transition-colors duration-300"
-              style={{
-                borderColor: "rgba(255,255,255,0.30)",
-                color: "rgba(255,255,255,0.9)",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.backgroundColor =
-                  "rgba(255,255,255,0.10)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "transparent")
-              }
-            >
-              <UserIcon />
-            </motion.button>
-          </div>
-
-          {/* Mobile hamburger */}
-          <motion.button
-            whileTap={buttonTap}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-lg text-white"
-            aria-label="Toggle menu"
-          >
-            <div className="w-5 flex flex-col gap-1.5">
-              <motion.span
-                className="block h-0.5 bg-current origin-center"
-                animate={
-                  mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }
-                }
-                transition={{ duration: 0.25 }}
-              />
-              <motion.span
-                className="block h-0.5 bg-current"
-                animate={
-                  mobileOpen
-                    ? { opacity: 0, scaleX: 0 }
-                    : { opacity: 1, scaleX: 1 }
-                }
-                transition={{ duration: 0.2 }}
-              />
-              <motion.span
-                className="block h-0.5 bg-current origin-center"
-                animate={
-                  mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }
-                }
-                transition={{ duration: 0.25 }}
-              />
-            </div>
-          </motion.button>
-        </div>
-      </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            className="md:hidden overflow-hidden"
-            variants={mobileMenuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            {/* teal-tinted panel to match the nav */}
-            <div
-              className="border-t px-6 py-4 space-y-1"
-              style={{
-                backgroundColor: "rgba(25, 78, 92, 0.97)",
-                borderColor: "rgba(255,255,255,0.12)",
-              }}
-            >
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50"
+        initial="hidden"
+        animate="visible"
+        variants={fadeDown}
+        style={{
+          backgroundColor: navBg,
+          backdropFilter: isScrolled ? "blur(14px)" : "none",
+          borderBottom: navBorder,
+          boxShadow: "none",
+          transition:
+            "background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease",
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <div className="flex items-center justify-between h-18">
+            {/* Logo */}
+            <motion.div whileTap={buttonTap}>
               <Link
                 to="/"
-                className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                className="font-serif text-2xl font-medium tracking-wide text-white"
               >
-                Home
+                {import.meta.env.VITE_APP_NAME}
               </Link>
+            </motion.div>
 
-              <MobileAccordion
+            {/* Desktop Nav */}
+            <nav
+              className="hidden md:flex items-center gap-1 rounded-full px-2 py-1.5"
+              style={{
+                backgroundColor: "var(--color-brand-overlay)",
+                border: "1px solid var(--color-brand-border-glass)",
+              }}
+            >
+              <NavLink to="/" active={isActive("/")} onDark={onDark}>
+                Home
+              </NavLink>
+
+              <DropdownMenu
                 label="Shop"
                 items={shopItems}
                 open={shopOpen}
@@ -244,9 +114,10 @@ const Nav = () => {
                 buildPath={(item) =>
                   `/shop/${item.toLowerCase().replace(/\s+/g, "-")}`
                 }
+                onDark={onDark}
               />
 
-              <MobileAccordion
+              <DropdownMenu
                 label="Furniture"
                 items={furnitureItems}
                 open={furnitureOpen}
@@ -254,43 +125,187 @@ const Nav = () => {
                 buildPath={(item) =>
                   `/furniture/${item.toLowerCase().replace(/\s+/g, "-")}`
                 }
+                onDark={onDark}
+                menuWidth="w-52"
               />
 
-              {["About Us", "Blog", "Contact Us"].map((label) => (
-                <Link
-                  key={label}
-                  to={`/${label.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="block px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  {label}
-                </Link>
-              ))}
-
-              <div className="pt-3 border-t border-white/10 flex gap-2">
-                <motion.button
-                  whileTap={buttonTap}
-                  className="relative px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors"
-                >
-                  <CartIcon />
-                  <span
-                    className="absolute -top-1 -right-1 w-4 h-4 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: "var(--color-brand-accent)" }}
+              {["About Us", "Contact Us"].map((label) => {
+                const path = `/${label.toLowerCase().replace(/\s+/g, "-")}`;
+                return (
+                  <NavLink
+                    key={label}
+                    to={path}
+                    active={isActive(path)}
+                    onDark={onDark}
                   >
-                    2
-                  </span>
-                </motion.button>
-                <motion.button
-                  whileTap={buttonTap}
-                  className="px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors"
+                    {label}
+                  </NavLink>
+                );
+              })}
+            </nav>
+
+            {/* Right actions */}
+            <div className="hidden md:flex items-center gap-2">
+              <motion.button
+                whileTap={buttonTap}
+                className="relative p-2.5 rounded-full border transition-colors duration-300"
+                style={{
+                  borderColor: "rgba(255,255,255,0.30)",
+                  color: "rgba(255,255,255,0.9)",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    "rgba(255,255,255,0.10)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
+              >
+                <CartIcon />
+                <span
+                  className="absolute -top-0.5 -right-0.5 w-4 h-4 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: "var(--color-brand-accent)" }}
                 >
-                  <UserIcon />
-                </motion.button>
-              </div>
+                  2
+                </span>
+              </motion.button>
+
+              <motion.button
+                whileTap={buttonTap}
+                className="p-2.5 rounded-full border transition-colors duration-300"
+                style={{
+                  borderColor: "rgba(255,255,255,0.30)",
+                  color: "rgba(255,255,255,0.9)",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor =
+                    "rgba(255,255,255,0.10)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "transparent")
+                }
+              >
+                <UserIcon />
+              </motion.button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.header>
+
+            {/* Mobile hamburger */}
+            <motion.button
+              whileTap={buttonTap}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="md:hidden p-2 rounded-lg text-white"
+              aria-label="Toggle menu"
+            >
+              <div className="w-5 flex flex-col gap-1.5">
+                <motion.span
+                  className="block h-0.5 bg-current origin-center"
+                  animate={
+                    mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }
+                  }
+                  transition={{ duration: 0.25 }}
+                />
+                <motion.span
+                  className="block h-0.5 bg-current"
+                  animate={
+                    mobileOpen
+                      ? { opacity: 0, scaleX: 0 }
+                      : { opacity: 1, scaleX: 1 }
+                  }
+                  transition={{ duration: 0.2 }}
+                />
+                <motion.span
+                  className="block h-0.5 bg-current origin-center"
+                  animate={
+                    mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }
+                  }
+                  transition={{ duration: 0.25 }}
+                />
+              </div>
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              className="md:hidden overflow-hidden"
+              variants={mobileMenuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              {/* teal-tinted panel to match the nav */}
+              <div
+                className="border-t px-6 py-4 space-y-1"
+                style={{
+                  backgroundColor: "rgba(25, 78, 92, 0.97)",
+                  borderColor: "rgba(255,255,255,0.12)",
+                }}
+              >
+                <Link
+                  to="/"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  Home
+                </Link>
+
+                <MobileAccordion
+                  label="Shop"
+                  items={shopItems}
+                  open={shopOpen}
+                  setOpen={setShopOpen}
+                  buildPath={(item) =>
+                    `/shop/${item.toLowerCase().replace(/\s+/g, "-")}`
+                  }
+                />
+
+                <MobileAccordion
+                  label="Furniture"
+                  items={furnitureItems}
+                  open={furnitureOpen}
+                  setOpen={setFurnitureOpen}
+                  buildPath={(item) =>
+                    `/furniture/${item.toLowerCase().replace(/\s+/g, "-")}`
+                  }
+                />
+
+                {["About Us", "Contact Us"].map((label) => (
+                  <Link
+                    key={label}
+                    to={`/${label.toLowerCase().replace(/\s+/g, "-")}`}
+                    className="block px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+                <div className="pt-3 border-t border-white/10 flex gap-2">
+                  <motion.button
+                    whileTap={buttonTap}
+                    className="relative px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors"
+                  >
+                    <CartIcon />
+                    <span
+                      className="absolute -top-1 -right-1 w-4 h-4 text-white text-[10px] font-semibold rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "var(--color-brand-accent)" }}
+                    >
+                      2
+                    </span>
+                  </motion.button>
+                  <motion.button
+                    whileTap={buttonTap}
+                    className="px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors"
+                  >
+                    <UserIcon />
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
+    </>
   );
 };
 
