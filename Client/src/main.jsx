@@ -5,6 +5,7 @@ import "./index.css";
 import Layout from "./Layout/Layout";
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
+import { InitialLoader } from "./Components";
 
 // Add more pages here as you build them
 const router = createBrowserRouter([
@@ -22,6 +23,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <InitialLoader>
+      <RouterProvider router={router} />
+    </InitialLoader>
   </StrictMode>,
 );
