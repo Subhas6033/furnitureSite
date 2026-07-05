@@ -1,38 +1,27 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { staggerContainer, fadeUp } from "../../Animations/Animations";
+import { products } from "../../Data/products";
 
-const products = [
-  {
-    name: "Milano Leather Sofa",
-    category: "Sofas",
-    price: 2499,
-    image: "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=600&auto=format&fit=crop",
-    tag: "Best Seller",
-  },
-  {
-    name: "Oslo Extendable Table",
-    category: "Dining",
-    price: 1299,
-    image: "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=600&auto=format&fit=crop",
-    tag: "New",
-  },
-  {
-    name: "Copenhagen Armchair",
-    category: "Seating",
-    price: 899,
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=600&auto=format&fit=crop",
-    tag: null,
-  },
-  {
-    name: "Stockholm Bed Frame",
-    category: "Bedroom",
-    price: 1899,
-    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=600&auto=format&fit=crop",
-    tag: "Featured",
-  },
-];
-
+/**
+ * FeaturedProducts Component
+ *
+ * Displays a grid of featured products on the homepage.
+ * Each product card is clickable and navigates to the product details page.
+ * Uses the shared products data from Data/products.js for consistency.
+ */
 const FeaturedProducts = () => {
+  // Hook for programmatic navigation
+  const navigate = useNavigate();
+
+  /**
+   * Navigate to product details page
+   * @param {string} productId - The unique identifier of the product
+   */
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,13 +60,15 @@ const FeaturedProducts = () => {
         >
           {products.map((product) => (
             <motion.div
-              key={product.name}
+              key={product.id}
               variants={fadeUp}
               className="group cursor-pointer"
+              onClick={() => handleProductClick(product.id)}
             >
               <div className="relative overflow-hidden rounded-lg mb-4 bg-[#f5f5f5]">
                 <img
-                  src={product.image}
+                  // Using the first image from the product images array (front view)
+                  src={product.images[0]}
                   alt={product.name}
                   className="w-full aspect-[4/5] object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -88,7 +79,7 @@ const FeaturedProducts = () => {
                 )}
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-white text-[#1a1a1a] px-4 py-2 rounded-full text-sm font-medium">
-                    Quick View
+                    View Details
                   </span>
                 </div>
               </div>

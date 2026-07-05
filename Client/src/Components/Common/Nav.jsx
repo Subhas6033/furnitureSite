@@ -126,6 +126,10 @@ const Nav = () => {
                 Home
               </NavLink>
 
+              <NavLink to="/products" active={isActive("/products")} onDark={onDark}>
+                Products
+              </NavLink>
+
               <DropdownMenu
                 label="Shop"
                 items={shopItems}
