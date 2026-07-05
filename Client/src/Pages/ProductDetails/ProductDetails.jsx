@@ -105,29 +105,6 @@ const ProductDetails = () => {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-white pt-20 md:pt-24"
     >
-      {/* Breadcrumb Navigation */}
-      <div className="bg-[#f5f5f5] py-3 sm:py-4">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-sm text-gray-600 overflow-x-auto" aria-label="Breadcrumb">
-            <button
-              onClick={() => navigate("/")}
-              className="hover:text-[#123326] transition-colors whitespace-nowrap"
-            >
-              Home
-            </button>
-            <span aria-hidden="true">/</span>
-            <button
-              onClick={() => navigate("/")}
-              className="hover:text-[#123326] transition-colors whitespace-nowrap"
-            >
-              {product.category}
-            </button>
-            <span aria-hidden="true">/</span>
-            <span className="text-gray-800 font-medium whitespace-nowrap">{product.name}</span>
-          </nav>
-        </div>
-      </div>
-
       {/* Main Product Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">

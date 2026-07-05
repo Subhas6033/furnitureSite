@@ -7,6 +7,7 @@ import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import Products from "./Pages/Products/Products";
+import NotFound from "./Pages/NotFound/NotFound";
 import { InitialLoader } from "./Components";
 
 // Add more pages here as you build them
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
       // Product details page with dynamic route parameter
       { path: "product/:productId", element: <ProductDetails /> },
       { path: "products", element: <Products /> },
+      // Catch-all route for 404
+      { path: "*", element: <NotFound /> },
       // { path: "contact-us", element: <Contact /> },
       // { path: "shop/:category", element: <Shop /> },
     ],

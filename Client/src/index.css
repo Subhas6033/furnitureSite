@@ -35,3 +35,19 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* Global cursor pointer for all clickable elements */
+button,
+a,
+[role="button"],
+[tabindex="0"] {
+  cursor: pointer;
+}
+
+/* Ensure elements with cursor:pointer don't have disabled cursor */
+button:disabled,
+a:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

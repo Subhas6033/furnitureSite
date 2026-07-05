@@ -1,50 +1,77 @@
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useMemo, useRef } from "react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { staggerContainer, fadeUp, fadeIn } from "../../Animations/Animations";
+import {
+  staggerContainer,
+  fadeUp,
+  fadeIn,
+  scaleIn,
+} from "../../Animations/Animations";
 import { products, getAllCategories } from "../../Data/products";
 
 /**
  * Products Component
  *
- * Displays all products in a filterable grid layout.
+ * Displays all products in a filterable grid layout with advanced filtering,
+ * sorting, and search capabilities.
+ *
  * Features:
- * - Category filtering
- * - Price range filtering
- * - Search functionality
- * - Animated card reveals
- * - Responsive grid layout
+ * - Category-based filtering
+ * - Real-time search across product name, description, and category
+ * - Multiple sort options (price, rating, name)
+ * - Animated product card reveals with staggered animations
+ * - Responsive grid layout (1-4 columns)
+ * - Empty state handling with clear filters option
+ *
+ * @component
+ * @example
+ * <Products />
+ *
+ * @returns {JSX.Element} The rendered products listing page
  */
 const Products = () => {
   const navigate = useNavigate();
+
+  // Get all unique categories from products data
   const categories = getAllCategories();
 
-  // Filter states
+  // Filter state - tracks current filter/sort selections
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("default");
 
-  // Filter and sort products
+  // Reference for scroll-based animations
+  const headerRef = useRef(null);
+  const isHeaderInView = useInView(headerRef, { once: true, margin: "-50px" });
+
+  /**
+   * Filter and sort products based on current filter state
+   *
+   * This memoized function runs whenever filter criteria change,
+   * ensuring optimal performance by avoiding unnecessary recalculations.
+   *
+   * @returns {Array} Filtered and sorted product array
+   */
   const filteredProducts = useMemo(() => {
     let result = [...products];
 
-    // Filter by category
+    // Filter by selected category
     if (activeCategory !== "All") {
       result = result.filter((p) => p.category === activeCategory);
     }
 
-    // Filter by search query
+    // Filter by search query - searches across name, description, and category
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(query) ||
           p.description.toLowerCase().includes(query) ||
-          p.category.toLowerCase().includes(query)
+          p.category.toLowerCase().includes(query),
       );
     }
 
-    // Sort products
+    // Sort products based on selected sort option
     switch (sortBy) {
       case "price-low":
         result.sort((a, b) => a.price - b.price);
@@ -59,6 +86,7 @@ const Products = () => {
         result.sort((a, b) => a.name.localeCompare(b.name));
         break;
       default:
+        // Default order - no sorting applied
         break;
     }
 
@@ -66,11 +94,32 @@ const Products = () => {
   }, [activeCategory, searchQuery, sortBy]);
 
   /**
+   * Calculate discount percentage for a product
+   *
+   * @param {number} originalPrice - Original price before discount
+   * @param {number} currentPrice - Current discounted price
+   * @returns {number} Rounded discount percentage
+   */
+  const calculateDiscount = (originalPrice, currentPrice) => {
+    return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
+  };
+
+  /**
    * Navigate to product details page
-   * @param {string} productId - The unique identifier of the product
+   *
+   * @param {string} productId - Unique identifier of the product
    */
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
+  };
+
+  /**
+   * Reset all filters to default values
+   */
+  const handleClearFilters = () => {
+    setActiveCategory("All");
+    setSearchQuery("");
+    setSortBy("default");
   };
 
   return (
@@ -78,13 +127,15 @@ const Products = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
       className="min-h-screen bg-white pt-20 md:pt-24"
     >
-      {/* Header Section */}
+      {/* Header Section - Page title and description */}
       <motion.div
+        ref={headerRef}
         className="bg-[#f5f5f5] py-10 md:py-14"
         initial="hidden"
-        animate="visible"
+        animate={isHeaderInView ? "visible" : "hidden"}
         variants={staggerContainer(0.1)}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +152,7 @@ const Products = () => {
         </div>
       </motion.div>
 
-      {/* Filters Section */}
+      {/* Sticky Filters Section - Always visible while scrolling */}
       <motion.div
         className="sticky top-16 md:top-20 z-30 bg-white border-b border-gray-100 py-4 shadow-sm"
         initial="hidden"
@@ -109,8 +160,9 @@ const Products = () => {
         variants={fadeIn}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Search and Sort Row */}
           <div className="flex flex-col md:flex-row md:items-center gap-4">
-            {/* Search */}
+            {/* Search Input */}
             <div className="relative flex-1 max-w-md">
               <input
                 type="text"
@@ -118,7 +170,9 @@ const Products = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2.5 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#123326]/20 focus:border-[#123326] transition-all"
+                aria-label="Search products"
               />
+              {/* Search Icon */}
               <svg
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
                 fill="none"
@@ -134,11 +188,12 @@ const Products = () => {
               </svg>
             </div>
 
-            {/* Sort */}
+            {/* Sort Dropdown */}
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#123326]/20 focus:border-[#123326] bg-white cursor-pointer"
+              aria-label="Sort products"
             >
               <option value="default">Sort by: Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -148,15 +203,16 @@ const Products = () => {
             </select>
           </div>
 
-          {/* Category Filters */}
+          {/* Category Filter Pills */}
           <div className="flex flex-wrap gap-2 mt-4">
             <button
               onClick={() => setActiveCategory("All")}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={
                 activeCategory === "All"
-                  ? "bg-[#123326] text-white"
-                  : "bg-[#f5f5f5] text-gray-600 hover:bg-gray-200"
-              }`}
+                  ? "px-4 py-2 rounded-full text-sm font-medium transition-all bg-[#123326] text-white"
+                  : "px-4 py-2 rounded-full text-sm font-medium transition-all bg-[#f5f5f5] text-gray-600 hover:bg-gray-200"
+              }
+              aria-pressed={activeCategory === "All"}
             >
               All
             </button>
@@ -164,11 +220,12 @@ const Products = () => {
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={
                   activeCategory === category
-                    ? "bg-[#123326] text-white"
-                    : "bg-[#f5f5f5] text-gray-600 hover:bg-gray-200"
-                }`}
+                    ? "px-4 py-2 rounded-full text-sm font-medium transition-all bg-[#123326] text-white"
+                    : "px-4 py-2 rounded-full text-sm font-medium transition-all bg-[#f5f5f5] text-gray-600 hover:bg-gray-200"
+                }
+                aria-pressed={activeCategory === category}
               >
                 {category}
               </button>
@@ -177,23 +234,28 @@ const Products = () => {
         </div>
       </motion.div>
 
-      {/* Products Grid */}
+      {/* Products Grid Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        {/* Results count */}
+        {/* Results Count */}
         <motion.p
           className="text-gray-500 mb-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
         >
-          Showing {filteredProducts.length} product
-          {filteredProducts.length !== 1 ? "s" : ""}
-          {activeCategory !== "All" && ` in ${activeCategory}`}
+          <span>
+            Showing {filteredProducts.length} product
+            {filteredProducts.length !== 1 ? "s" : ""}
+            {activeCategory !== "All" ? " in " + activeCategory : ""}
+            {searchQuery ? " matching " + searchQuery : ""}
+          </span>
         </motion.p>
 
+        {/* Product Grid or Empty State */}
         <AnimatePresence mode="wait">
           {filteredProducts.length > 0 ? (
             <motion.div
-              key={`${activeCategory}-${searchQuery}-${sortBy}`}
+              key={activeCategory + "-" + searchQuery + "-" + sortBy}
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8"
               initial="hidden"
               animate="visible"
@@ -208,43 +270,68 @@ const Products = () => {
                   className="group cursor-pointer"
                   onClick={() => handleProductClick(product.id)}
                   layout
+                  whileHover={{ y: -4 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  <div className="relative overflow-hidden rounded-lg mb-4 bg-[#f5f5f5]">
+                  {/* Product Card */}
+                  <div className="relative overflow-hidden rounded-lg mb-4 bg-[#f5f5f5] aspect-[4/5]">
+                    {/* Product Image */}
                     <motion.img
                       src={product.images[0]}
                       alt={product.name}
-                      className="w-full aspect-[4/5] object-cover"
-                      whileHover={{ scale: 1.05 }}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.08 }}
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     />
+
                     {/* Discount Badge */}
                     {product.originalPrice > product.price && (
-                      <span className="absolute top-3 left-3 bg-[#ff3f3f] text-white text-xs font-medium px-2 py-1 rounded">
-                        {Math.round(
-                          ((product.originalPrice - product.price) /
-                            product.originalPrice) *
-                            100
+                      <motion.span
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.1 + index * 0.05 }}
+                        className="absolute top-3 left-3 bg-[#ff3f3f] text-white text-xs font-semibold px-3 py-1 rounded shadow-md"
+                      >
+                        {calculateDiscount(
+                          product.originalPrice,
+                          product.price,
                         )}
                         % OFF
-                      </span>
+                      </motion.span>
                     )}
+
                     {/* Tag Badge */}
                     {product.tag && (
-                      <span className="absolute top-3 right-3 bg-[#a97c2f] text-white text-xs font-medium px-3 py-1 rounded-full">
+                      <span className="absolute top-3 right-3 bg-[#a97c2f] text-white text-xs font-medium px-3 py-1 rounded-full shadow-md">
                         {product.tag}
                       </span>
                     )}
+
                     {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="bg-white text-[#1a1a1a] px-5 py-2.5 rounded-full text-sm font-medium shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                    />
+
+                    {/* View Details Button on Hover */}
+                    <motion.div
+                      className="absolute inset-0 flex items-center justify-center"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                    >
+                      <motion.span
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ y: 0, opacity: 1 }}
+                        className="bg-white text-[#1a1a1a] px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg"
+                      >
                         View Details
-                      </span>
-                    </div>
+                      </motion.span>
+                    </motion.div>
                   </div>
 
                   {/* Product Info */}
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <p className="text-xs text-gray-500 uppercase tracking-wide">
                       {product.category}
                     </p>
@@ -252,12 +339,12 @@ const Products = () => {
                       {product.name}
                     </h3>
                     <div className="flex items-center gap-2">
-                      <span className="text-[#123326] font-semibold text-lg">
-                        ${product.price.toLocaleString()}
+                      <span className="text-[#123326] font-bold text-lg">
+                        {"$" + product.price.toLocaleString()}
                       </span>
                       {product.originalPrice > product.price && (
                         <span className="text-gray-400 line-through text-sm">
-                          ${product.originalPrice.toLocaleString()}
+                          {"$" + product.originalPrice.toLocaleString()}
                         </span>
                       )}
                     </div>
@@ -278,10 +365,12 @@ const Products = () => {
               ))}
             </motion.div>
           ) : (
+            /* Empty State - When no products match filters */
             <motion.div
               className="text-center py-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
+              variants={scaleIn}
             >
               <div className="text-6xl mb-4">🔍</div>
               <h3 className="text-xl font-medium text-gray-800 mb-2">
@@ -291,12 +380,8 @@ const Products = () => {
                 Try adjusting your search or filter criteria
               </p>
               <button
-                onClick={() => {
-                  setActiveCategory("All");
-                  setSearchQuery("");
-                  setSortBy("default");
-                }}
-                className="bg-[#123326] text-white px-6 py-3 rounded-full font-medium hover:bg-[#0f2920] transition-colors"
+                onClick={handleClearFilters}
+                className="bg-[#123326] text-white px-6 py-3 rounded-full font-medium hover:bg-[#0f2920] transition-all hover:shadow-lg"
               >
                 Clear Filters
               </button>
