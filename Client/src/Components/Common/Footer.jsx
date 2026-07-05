@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { fadeUp, staggerContainer, navItemSlide } from "../../Animations/Animations";
+import {
+  fadeUp,
+  staggerContainer,
+  navItemSlide,
+} from "../../Animations/Animations";
 
 const Footer = () => {
   const footerLinks = {
@@ -94,104 +98,60 @@ const Footer = () => {
           </motion.div>
 
           {/* Link Columns */}
-          {Object.entries(footerLinks).map(([category, links], categoryIndex) => (
-            <motion.div
-              key={category}
-              variants={navItemSlide}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: categoryIndex * 0.05 }}
-            >
-              <h4
-                className="text-sm font-semibold uppercase tracking-wider mb-4"
-                style={{
-                  color: "var(--color-brand-footer-heading)",
-                }}
+          {Object.entries(footerLinks).map(
+            ([category, links], categoryIndex) => (
+              <motion.div
+                key={category}
+                variants={navItemSlide}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: categoryIndex * 0.05 }}
               >
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <Link
-                      to={`/${link.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and")}`}
-                      className="text-sm transition-colors inline-block"
-                      style={{
-                        color: "var(--color-brand-footer-text)",
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color =
-                          "var(--color-brand-footer-text-hover)")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color =
-                          "var(--color-brand-footer-text)")
-                      }
-                    >
-                      {link}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                <h4
+                  className="text-sm font-semibold uppercase tracking-wider mb-4"
+                  style={{
+                    color: "var(--color-brand-footer-heading)",
+                  }}
+                >
+                  {category}
+                </h4>
+                <ul className="space-y-3">
+                  {links.map((link) => (
+                    <li key={link}>
+                      <Link
+                        to={`/${link.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and")}`}
+                        className="text-sm transition-colors inline-block"
+                        style={{
+                          color: "var(--color-brand-footer-text)",
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color =
+                            "var(--color-brand-footer-text-hover)")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color =
+                            "var(--color-brand-footer-text)")
+                        }
+                      >
+                        {link}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            ),
+          )}
         </div>
-
-        {/* Newsletter */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="mt-10 sm:mt-14 pt-8 sm:pt-10"
-          style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}
-        >
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
-            <div>
-              <h4
-                className="font-semibold text-base"
-                style={{
-                  color: "var(--color-brand-footer-heading)",
-                }}
-              >
-                Stay in the loop
-              </h4>
-              <p className="text-sm mt-1">
-                New arrivals, exclusive offers, and design inspiration.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-2 max-w-full sm:max-w-sm lg:max-w-md w-full lg:w-auto">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors w-full"
-                style={{
-                  backgroundColor: "var(--color-brand-footer-surface)",
-                  border: "1px solid var(--color-brand-footer-border)",
-                  color: "var(--color-brand-footer-heading)",
-                }}
-              />
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-5 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap"
-                style={{
-                  backgroundColor: "var(--color-brand-accent)",
-                  color: "white",
-                }}
-              >
-                Subscribe
-              </motion.button>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Bottom Bar */}
       <div style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-xs">
-          <p>© {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All
+            rights reserved.
+          </p>
           <div className="flex flex-wrap gap-3 sm:gap-5 justify-center sm:justify-end">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
               (link) => (
@@ -211,7 +171,7 @@ const Footer = () => {
                 >
                   {link}
                 </Link>
-              )
+              ),
             )}
           </div>
         </div>

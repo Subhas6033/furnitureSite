@@ -126,7 +126,11 @@ const Nav = () => {
                 Home
               </NavLink>
 
-              <NavLink to="/products" active={isActive("/products")} onDark={onDark}>
+              <NavLink
+                to="/products"
+                active={isActive("/products")}
+                onDark={onDark}
+              >
                 Products
               </NavLink>
 
@@ -308,7 +312,7 @@ const Nav = () => {
                   }
                 />
 
-                {["About Us", "Contact Us"].map((label, i) => (
+                {["Products", "About Us", "Contact Us"].map((label, i) => (
                   <motion.div
                     key={label}
                     variants={mobileMenuItemVariants}

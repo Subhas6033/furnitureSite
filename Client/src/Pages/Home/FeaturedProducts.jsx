@@ -1,64 +1,46 @@
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
-import { staggerContainer, fadeUp, scaleIn } from "../../Animations/Animations";
+import { staggerContainer, fadeUp } from "../../Animations/Animations";
 import { products } from "../../Data/products";
 
-/**
- * FeaturedProducts Component
- *
- * Displays a grid of featured products on the homepage.
- * Each product card is clickable and navigates to the product details page.
- * Uses the shared products data from Data/products.js for consistency.
- *
- * Features:
- * - Staggered fade-up animation on scroll into view
- * - Smooth hover effects with scale and overlay transitions
- * - Responsive grid layout (1-4 columns based on viewport)
- * - Discount and tag badges on product cards
- * - Rating display with star visualization
- *
- * @component
- * @example
- * <FeaturedProducts />
- */
 const FeaturedProducts = () => {
-  // Hook for programmatic navigation to product details
   const navigate = useNavigate();
-
-  // Reference for scroll detection - enables animations when section comes into view
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  /**
-   * Navigate to product details page
-   * Uses React Router's navigate function for client-side routing
-   *
-   * @param {string} productId - The unique identifier of the product
-   * @returns {void}
-   */
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
 
-  /**
-   * Calculate discount percentage for display
-   *
-   * @param {number} originalPrice - The original price before discount
-   * @param {number} currentPrice - The discounted price
-   * @returns {number} Discount percentage rounded to nearest integer
-   */
   const calculateDiscount = (originalPrice, currentPrice) => {
     return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
   };
 
+  // Star rating component
+  const StarRating = ({ rating }) => (
+    <div className="flex items-center gap-0.5">
+      {[...Array(5)].map((_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${i < Math.floor(rating) ? "text-amber-400" : "text-slate-200"}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  );
+
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-24 bg-white relative overflow-hidden"
+      className="py-20 md:py-28 bg-white relative overflow-hidden"
     >
-      {/* Background decorative element - subtle gradient for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-transparent pointer-events-none" />
+      {/* Background Decoration */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-brand-primary/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-brand-accent/5 rounded-full translate-x-1/2 translate-y-1/2" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -73,13 +55,13 @@ const FeaturedProducts = () => {
             className="text-center md:text-left mb-6 md:mb-0"
             variants={fadeUp}
           >
-            <span className="inline-block text-sm font-medium tracking-wider uppercase text-[#a97c2f] mb-3">
+            <span className="inline-block text-sm font-semibold tracking-[0.25em] uppercase text-brand-accent mb-4">
               Handpicked For You
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#1a1a1a] mb-4">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-slate-900 mb-4">
               Featured Pieces
             </h2>
-            <p className="text-[#666] text-lg max-w-xl">
+            <p className="text-slate-600 text-lg max-w-xl">
               Our most loved pieces, chosen by our design team for their
               exceptional craftsmanship and timeless appeal.
             </p>
@@ -87,9 +69,22 @@ const FeaturedProducts = () => {
           <motion.div variants={fadeUp}>
             <button
               onClick={() => navigate("/products")}
-              className="bg-[#123326] text-white px-6 py-3 rounded-full font-medium hover:bg-[#0f2920] transition-all duration-300 hover:shadow-lg hover:shadow-[#123326]/20"
+              className="group bg-brand-primary hover:bg-brand-primary-hover text-white px-7 py-3.5 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:shadow-brand-primary/20 hover:-translate-y-1 flex items-center gap-2"
             >
-              View All Products
+              <span>View All Products</span>
+              <svg
+                className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
             </button>
           </motion.div>
         </motion.div>
@@ -110,102 +105,110 @@ const FeaturedProducts = () => {
               className="group cursor-pointer"
               onClick={() => handleProductClick(product.id)}
             >
-              {/* Product Card Image Container */}
-              <div className="relative overflow-hidden rounded-lg mb-4 bg-[#f5f5f5] aspect-[4/5]">
-                {/* Product Image */}
+              {/* Product Card Image */}
+              <div className="relative overflow-hidden rounded-2xl mb-4 bg-linear-to-br from-slate-100 to-slate-50 aspect-4/5">
                 <motion.img
                   src={product.images[0]}
                   alt={product.name}
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.08 }}
-                  transition={{
-                    duration: 0.6,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 />
 
-                {/* Discount Badge - Shows when product has a discount */}
-                {product.originalPrice > product.price && (
-                  <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    className="absolute top-3 left-3 bg-[#ff3f3f] text-white text-xs font-semibold px-3 py-1 rounded shadow-md"
+                {/* Badges */}
+                <div className="absolute top-3 left-3 flex flex-col gap-2">
+                  {product.originalPrice > product.price && (
+                    <motion.span
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.2 + index * 0.1 }}
+                      className="bg-brand-accent text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
+                    >
+                      {calculateDiscount(product.originalPrice, product.price)}%
+                      OFF
+                    </motion.span>
+                  )}
+                  {product.tag && (
+                    <span className="bg-brand-primary text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg">
+                      {product.tag}
+                    </span>
+                  )}
+                </div>
+
+                {/* Wishlist Button */}
+                <button className="absolute top-3 right-3 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 shadow-lg">
+                  <svg
+                    className="w-5 h-5 text-slate-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    {calculateDiscount(product.originalPrice, product.price)}%
-                    OFF
-                  </motion.span>
-                )}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </button>
 
-                {/* Tag Badge - Shows promotional tags like "Best Seller" */}
-                {product.tag && (
-                  <span className="absolute top-3 right-3 bg-[#a97c2f] text-white text-xs font-medium px-3 py-1 rounded-full shadow-md">
-                    {product.tag}
-                  </span>
-                )}
-
-                {/* Hover Overlay - Slides up on hover */}
+                {/* Hover Overlay */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-linear-to-t from-slate-900/60 via-slate-900/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                 />
 
-                {/* View Details Button - Appears on hover */}
+                {/* Quick View Button */}
                 <motion.div
                   className="absolute inset-0 flex items-center justify-center"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 1 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <motion.span
+                  <motion.button
                     initial={{ y: 20, opacity: 0 }}
                     whileHover={{ y: 0, opacity: 1 }}
-                    className="bg-white text-[#1a1a1a] px-6 py-3 rounded-full text-sm font-semibold shadow-xl"
+                    className="bg-white text-slate-900 px-6 py-3 rounded-full text-sm font-semibold shadow-xl"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleProductClick(product.id);
+                    }}
                   >
-                    View Details
-                  </motion.span>
+                    Quick View
+                  </motion.button>
                 </motion.div>
               </div>
 
-              {/* Product Information */}
-              <div className="space-y-1.5">
+              {/* Product Info */}
+              <div className="space-y-2">
+                {/* Category */}
+                <p className="text-xs font-medium text-brand-accent uppercase tracking-wider">
+                  {product.category}
+                </p>
+
                 {/* Product Name */}
-                <h3 className="text-[#1a1a1a] font-medium text-lg group-hover:text-[#a97c2f] transition-colors duration-300">
+                <h3 className="text-slate-900 font-medium text-lg group-hover:text-brand-primary transition-colors duration-300 line-clamp-1">
                   {product.name}
                 </h3>
 
-                {/* Category */}
-                <p className="text-[#888] text-sm">{product.category}</p>
-
-                {/* Price Display */}
+                {/* Price */}
                 <div className="flex items-center gap-2">
-                  <span className="text-[#123326] font-bold text-xl">
-                    {"$" + product.price.toLocaleString()}
+                  <span className="text-slate-900 font-bold text-xl">
+                    ${product.price.toLocaleString()}
                   </span>
                   {product.originalPrice > product.price && (
-                    <span className="text-gray-400 line-through text-sm">
-                      {"$" + product.originalPrice.toLocaleString()}
+                    <span className="text-slate-400 line-through text-sm">
+                      ${product.originalPrice.toLocaleString()}
                     </span>
                   )}
                 </div>
 
-                {/* Rating Display */}
-                <div className="flex items-center gap-2 pt-1">
-                  <div className="flex items-center gap-1">
-                    {/* Rating number */}
-                    <span className="text-[#ff9f00] text-sm font-medium">
-                      {product.rating}
-                    </span>
-                    <span className="text-[#ff9f00]">★</span>
-                    {/* Rating number */}
-                    <span className="text-[#ff9f00] text-sm font-medium ml-1">
-                      {product.rating}
-                    </span>
-                  </div>
-                  <span className="text-gray-300">|</span>
-                  <span className="text-gray-500 text-sm">
-                    {product.reviews} reviews
+                {/* Rating */}
+                <div className="flex items-center gap-3 pt-1">
+                  <StarRating rating={product.rating} />
+                  <span className="text-slate-400 text-sm">
+                    {product.rating} ({product.reviews})
                   </span>
                 </div>
               </div>

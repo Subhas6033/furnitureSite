@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-100 via-amber-50 to-stone-200 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-stone-100 via-amber-50 to-stone-200 relative overflow-hidden">
       {/* Floating Furniture Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Sofa */}
         <div className="absolute bottom-20 left-10 opacity-20 animate-float-slow">
-          <svg className="w-32 h-20 text-brand-primary" viewBox="0 0 120 60" fill="currentColor">
+          <svg
+            className="w-32 h-20 text-brand-primary"
+            viewBox="0 0 120 60"
+            fill="currentColor"
+          >
             <rect x="5" y="20" width="110" height="35" rx="8" />
             <rect x="0" y="15" width="20" height="40" rx="5" />
             <rect x="100" y="15" width="20" height="40" rx="5" />
@@ -51,11 +55,11 @@ const NotFound = () => {
       <div className="text-center z-10 px-6 max-w-2xl">
         {/* Animated 404 with furniture style */}
         <div className="relative mb-8">
-          <h1 className="text-[12rem] leading-none font-bold text-transparent bg-clip-text bg-gradient-to-br from-brand-primary via-brand-primary-hover to-brand-primary-light animate-fade-in drop-shadow-xl">
+          <h1 className="text-[12rem] leading-none font-bold text-transparent bg-clip-text bg-linear-to-br from-brand-primary via-brand-primary-hover to-brand-primary-light animate-fade-in drop-shadow-xl">
             404
           </h1>
           {/* Decorative underline */}
-          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-40 h-2 bg-gradient-to-r from-transparent via-brand-accent to-transparent rounded-full animate-expand"></div>
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-40 h-2 bg-linear-to-r from-transparent via-brand-accent to-transparent rounded-full animate-expand"></div>
         </div>
 
         {/* Main message */}
@@ -64,8 +68,8 @@ const NotFound = () => {
             Oops! This Page Got Lost
           </h2>
           <p className="text-lg text-stone-600 mb-10 leading-relaxed max-w-lg mx-auto">
-            Looks like this furniture wandered off the show floor.
-            Let's get you back to browsing our collection!
+            Looks like this furniture wandered off the show floor. Let's get you
+            back to browsing our collection!
           </p>
         </div>
 
@@ -81,7 +85,12 @@ const NotFound = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M11 17l-5-5m0 0l5-5m-5 5h12"
+              />
             </svg>
             <span>Back to Home</span>
             <svg
@@ -90,13 +99,21 @@ const NotFound = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 7l5 5m0 0l-5 5m5-5H6"
+              />
             </svg>
           </Link>
         </div>
 
         {/* Quick Links */}
-        <div className="mt-12 flex flex-wrap justify-center gap-4 animate-slide-up" style={{ animationDelay: "0.6s" }}>
+        <div
+          className="mt-12 flex flex-wrap justify-center gap-4 animate-slide-up"
+          style={{ animationDelay: "0.6s" }}
+        >
           <Link
             to="/products"
             className="px-6 py-2 border-2 border-brand-primary text-brand-primary rounded-full hover:bg-brand-primary hover:text-white transition-all duration-300 text-sm font-medium"
