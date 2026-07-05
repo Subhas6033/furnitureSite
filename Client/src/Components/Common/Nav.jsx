@@ -271,7 +271,11 @@ const Nav = () => {
                   borderColor: "rgba(255,255,255,0.12)",
                 }}
               >
-                <motion.div variants={mobileMenuItemVariants} initial="hidden" animate="visible">
+                <motion.div
+                  variants={mobileMenuItemVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
                   <Link
                     to="/"
                     className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 transition-colors"

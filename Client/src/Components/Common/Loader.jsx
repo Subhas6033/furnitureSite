@@ -104,7 +104,7 @@ export function CurtainLoader({
               className="text-2xl tracking-[0.35em] text-[#f1e3c2] sm:text-3xl"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
-              AMARA&nbsp;&amp;&nbsp;OAK
+              ENTITY FURNITURES
             </span>
             <span
               className="h-px w-16 bg-[#d4af6a]/70"
