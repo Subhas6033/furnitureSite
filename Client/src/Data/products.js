@@ -9,16 +9,20 @@
 // Product images - unique images for each product with different view angles
 const productImages = {
   lShapedSofa: [
-    "https://images.unsplash.com/photo-1771245918613-dee9ac8951ee?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1774375275373-3acb2fbc425a?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1768511731493-d3c2aa483bb5?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1776653095063-895a05001818?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424336/lshapeOne_odlk6k.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424335/lshapeTwo_koievf.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424341/lshapeThree_i91jcb.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424345/lshapeFive_nccjcx.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424340/lshapeFour_ix6jwl.png",
   ],
   threeSeater: [
-    "https://images.unsplash.com/photo-1534595038511-9f219fe0c979?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1567745566980-4378a3db17fc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1775029676739-86443af4010d?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424540/threeTwo_aqabvr.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424734/threeGray_x17lub.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424549/threethree_o1vqzr.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424547/threeOne_kkxlnj.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424544/threeFive_ifr2l9.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424555/threeFour_ypqeg0.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424552/threeSix_yqifk7.png",
   ],
   twoSeater: [
     "https://images.unsplash.com/photo-1767584394169-cb62eccfe930?q=80&w=800&auto=format&fit=crop",
@@ -39,6 +43,8 @@ const productImages = {
   woodenTable: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783419368/woodenTableDetails_gfbvy8.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783419422/woodenTableFront_ch688w.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783423828/top_jrf8uj.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783423735/woodenTop_bplaep.png",
   ],
   marbleTable: [
     "https://images.unsplash.com/photo-1649011327045-624a1bd2c3e7?q=80&w=800&auto=format&fit=crop",
@@ -55,8 +61,11 @@ const productImages = {
   curtains: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416968/curtainsDetail_jaqeuz.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417038/curtainsSide_alq7nr.jpg",
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783417038/curtainsSide_alq7nr.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424028/curtaneTwo_snwhml.jpg",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417219/curtainsDetail_tt9boa.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtaneFour_l42kwn.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtaneThree_glnwbi.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtainOne_ejqss1.jpg",
   ],
   blinds: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417279/blindsDetails_qm3znn.png",
@@ -70,8 +79,7 @@ const productImages = {
   ottomans: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416607/ottomansSide_b8e17p.png",
-    "",
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424182/otto_gxlkoq.png",
   ],
 };
 

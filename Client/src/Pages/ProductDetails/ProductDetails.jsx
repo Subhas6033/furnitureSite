@@ -82,7 +82,7 @@ const ProductDetails = () => {
                   <img
                     src={currentImage}
                     alt={`${product.name} - Image ${activeIndex + 1}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     loading="eager"
                   />
                 </motion.div>
@@ -142,7 +142,7 @@ const ProductDetails = () => {
                     <img
                       src={img}
                       alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                     />
                   </button>
                 ))}
