@@ -6,31 +6,31 @@
  * 3D model configuration, specifications, and other details.
  */
 
-// Product images - using L-Shaped/Corner Sofa images for all products
+// Product images - unique images for each product with different view angles
 const productImages = {
   lShapedSofa: [
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1771245918613-dee9ac8951ee?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1774375275373-3acb2fbc425a?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1768511731493-d3c2aa483bb5?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1776653095063-895a05001818?q=80&w=800&auto=format&fit=crop",
   ],
   threeSeater: [
+    "https://images.unsplash.com/photo-1534595038511-9f219fe0c979?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1567745566980-4378a3db17fc?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1775029676739-86443af4010d?q=80&w=800&auto=format&fit=crop",
   ],
   twoSeater: [
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1767584394169-cb62eccfe930?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1770610272268-526d7db17fc?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
   ],
   sofaSet: [
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1551215717-8bc8cfe833ee?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
   ],
   centreTable: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783418532/centerTableDetails_gdijci.png",
@@ -41,16 +41,16 @@ const productImages = {
     "https://res.cloudinary.com/developersubhas/image/upload/v1783419422/woodenTableFront_ch688w.png",
   ],
   marbleTable: [
-    "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1499933374294-4584856e5c6b?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1649011327045-624a1bd2c3e7?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1758448500596-ce0e0239f1be?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1759264244719-94b45845fb92?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1758448755981-954afbf60ff7?q=80&w=800&auto=format&fit=crop",
   ],
   chesterfieldTable: [
-    "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1499933374294-4584856e5c6b?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1499933374294-4584856e5c6b?q=80&w=800&auto=format&fit=crop",
   ],
   curtains: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416968/curtainsDetail_jaqeuz.png",
@@ -62,10 +62,10 @@ const productImages = {
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417279/blindsDetails_qm3znn.png",
   ],
   poufs: [
+    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1763616828225-95befdfddc0c?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
   ],
   ottomans: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
