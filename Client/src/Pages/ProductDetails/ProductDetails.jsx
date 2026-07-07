@@ -1,66 +1,25 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Environment,
-  PresentationControls,
-} from "@react-three/drei";
-import { getProductById, viewAngles } from "../../Data/products";
+import { getProductById } from "../../Data/products";
 import { staggerContainer, fadeUp } from "../../Animations/Animations";
-import Product3DModel from "./Product3DModel";
-
-// 3D Model loading placeholder
-const Loading3D = () => (
-  <mesh>
-    <boxGeometry args={[1, 1, 1]} />
-    <meshStandardMaterial color="#a97c2f" wireframe />
-  </mesh>
-);
-
-// Color filter overlay component
-const ColorOverlay = ({ color, isActive }) => {
-  if (!isActive || !color) return null;
-
-  return (
-    <div
-      className="absolute inset-0 pointer-events-none transition-opacity duration-300"
-      style={{
-        backgroundColor: color,
-        opacity: 0.15,
-        mixBlendMode: "multiply",
-      }}
-    />
-  );
-};
 
 /**
  * ProductDetails Component
  *
- * Displays comprehensive product information with multiple viewing options:
- * - Image gallery with different view angles (Front, Side, Back, Detail)
- * - Interactive 3D model view
+ * Displays product information with a simple photo gallery.
+ * - Multiple photos displayed in a carousel/gallery
  * - Product specifications
- * - Color selection with visual preview
- *
- * Production-ready with proper accessibility, responsive design, and error handling.
+ * - No color selection, angle views, or 3D view
  */
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const product = getProductById(productId);
 
-  // State for managing view mode and selections
-  const [activeView, setActiveView] = useState("detail");
-  const [selectedColor, setSelectedColor] = useState(null);
-
-  // Initialize selected color when product loads
-  useEffect(() => {
-    if (product?.colors?.length > 0) {
-      setSelectedColor(product.colors[0]);
-    }
-  }, [product]);
+  // Get all product images as a flat array
+  const productImagesArray = product?.images?.filter(img => img && img.trim() !== "") || [];
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Redirect to home if product not found
   if (!product) {
@@ -81,25 +40,16 @@ const ProductDetails = () => {
     );
   }
 
-  // Initialize selected color with first available color
-  const currentColor = selectedColor || product.colors?.[0] || null;
+  // Get current image
+  const currentImage = productImagesArray[activeIndex] || productImagesArray[0];
 
-  // Map view IDs to their array index positions
-  // viewAngles array: [detail, front, side, back, 3d]
-  const viewToImageIndex = {
-    detail: 0,
-    front: 1,
-    side: 2,
-    back: 3,
+  const goToNext = () => {
+    setActiveIndex((prev) => (prev + 1) % productImagesArray.length);
   };
 
-  // Get product images array - ensure it's an array
-  const productImagesArray = Array.isArray(product.images) ? product.images : [];
-
-  // Get current image based on active view
-  const currentImage = activeView === "3d"
-    ? null
-    : (productImagesArray[viewToImageIndex[activeView]] || productImagesArray[0]);
+  const goToPrev = () => {
+    setActiveIndex((prev) => (prev - 1 + productImagesArray.length) % productImagesArray.length);
+  };
 
   return (
     <motion.div
@@ -111,111 +61,93 @@ const ProductDetails = () => {
       {/* Main Product Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12">
-          {/* Left Column - Product Images & 3D View */}
+          {/* Left Column - Product Images Gallery */}
           <div className="space-y-3 sm:space-y-4">
-            {/* Main Image Display Area */}
+            {/* Main Image Display */}
             <motion.div
-              key={`${activeView}-${currentColor?.name}`}
+              key={activeIndex}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}
               className="relative bg-[#f5f5f5] rounded-lg overflow-hidden aspect-square"
             >
               <AnimatePresence mode="wait">
-                {activeView === "3d" ? (
-                  <motion.div
-                    key="3d-view"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="w-full h-full"
-                  >
-                    <Canvas
-                      camera={{ position: [0, 0, 5], fov: 50 }}
-                      gl={{ antialias: true, alpha: true }}
-                    >
-                      <Suspense fallback={<Loading3D />}>
-                        <ambientLight intensity={0.5} />
-                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                        <pointLight position={[-10, -10, -10]} />
-                        <PresentationControls
-                          global
-                          config={{ mass: 2, tension: 500 }}
-                          snap={{ mass: 4, tension: 1500 }}
-                          rotation={[0, 0, 0]}
-                          polar={[-Math.PI / 3, Math.PI / 3]}
-                          azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-                        >
-                          <Product3DModel type={product.model3d} />
-                        </PresentationControls>
-                        <OrbitControls
-                          enableZoom={true}
-                          enablePan={false}
-                          minDistance={3}
-                          maxDistance={10}
-                          autoRotate
-                          autoRotateSpeed={2}
-                        />
-                        <Environment preset="apartment" />
-                      </Suspense>
-                    </Canvas>
-                    {/* 3D View Instructions */}
-                    <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 bg-black/50 text-white px-3 py-1.5 sm:py-2 rounded text-xs sm:text-sm">
-                      Drag to rotate • Scroll to zoom
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key={`img-${activeView}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="relative w-full h-full"
-                  >
-                    <img
-                      src={currentImage}
-                      alt={`${product.name} - ${viewAngles.find((v) => v.id === activeView)?.label}`}
-                      className="w-full h-full object-cover"
-                      loading="eager"
-                    />
-                    {/* Color overlay for visual preview */}
-                    <ColorOverlay color={currentColor?.hex} isActive={activeView !== "3d" && !!currentColor} />
-                  </motion.div>
-                )}
+                <motion.div
+                  key={`img-${activeIndex}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="relative w-full h-full"
+                >
+                  <img
+                    src={currentImage}
+                    alt={`${product.name} - Image ${activeIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                </motion.div>
               </AnimatePresence>
 
               {/* Everything is Customizable Badge */}
               <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-[#123326] text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium">
                 Everything is Customizable
               </div>
+
+              {/* Navigation Arrows - Only show if multiple images */}
+              {productImagesArray.length > 1 && (
+                <>
+                  <button
+                    onClick={goToPrev}
+                    className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-lg p-2 sm:p-3 rounded-full transition-colors"
+                    aria-label="Previous image"
+                  >
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-lg p-2 sm:p-3 rounded-full transition-colors"
+                    aria-label="Next image"
+                  >
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </>
+              )}
+
+              {/* Image Counter */}
+              {productImagesArray.length > 1 && (
+                <div className="absolute bottom-3 sm:bottom-4 right-3 sm:right-4 bg-black/50 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm">
+                  {activeIndex + 1} / {productImagesArray.length}
+                </div>
+              )}
             </motion.div>
 
-            {/* View Angle Thumbnails - Text only, no icons */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
-              {viewAngles.map((angle) => {
-                // Check if this view has an image (skip for 3D)
-                const imageIndex = viewToImageIndex[angle.id];
-                const hasImage = angle.id === "3d" || (productImagesArray[imageIndex] && productImagesArray[imageIndex].trim() !== "");
-
-                // Don't render if no image and not 3D
-                if (!hasImage && angle.id !== "3d") return null;
-
-                return (
+            {/* Thumbnail Gallery */}
+            {productImagesArray.length > 1 && (
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
+                {productImagesArray.map((img, index) => (
                   <button
-                    key={angle.id}
-                    onClick={() => setActiveView(angle.id)}
-                    className={`shrink-0 px-3 sm:px-4 py-2 rounded-lg transition-all text-sm font-medium ${
-                      activeView === angle.id
-                        ? "bg-[#123326] text-white"
-                        : "bg-[#f5f5f5] text-gray-600 hover:bg-[#e8e8e8]"
+                    key={index}
+                    onClick={() => setActiveIndex(index)}
+                    className={`shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden transition-all ${
+                      activeIndex === index
+                        ? "ring-2 ring-[#123326] ring-offset-2"
+                        : "opacity-60 hover:opacity-100"
                     }`}
-                    aria-pressed={activeView === angle.id}
+                    aria-label={`View image ${index + 1}`}
                   >
-                    {angle.label}
+                    <img
+                      src={img}
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </button>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right Column - Product Information */}
@@ -250,44 +182,6 @@ const ProductDetails = () => {
                   {product.inStock ? "In Stock" : "Out of Stock"}
                 </span>
               </motion.div>
-
-              {/* Color Selection - Fixed color changing feature */}
-              {product.colors && product.colors.length > 0 && (
-                <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
-                  <h3 className="text-sm font-medium text-gray-700 mb-3">
-                    Select Color:
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {product.colors.map((color) => (
-                      <button
-                        key={color.name}
-                        onClick={() => setSelectedColor(color)}
-                        className={`group flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-all ${
-                          currentColor?.name === color.name
-                            ? "border-[#2874f0] bg-blue-50"
-                            : "border-gray-200 hover:border-gray-300"
-                        }`}
-                        aria-label={`Select ${color.name} color`}
-                        aria-pressed={currentColor?.name === color.name}
-                      >
-                        <span
-                          className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border border-gray-300 shadow-sm"
-                          style={{ backgroundColor: color.hex }}
-                        />
-                        <span className="text-sm text-gray-700 hidden sm:inline">
-                          {color.name}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                  {/* Selected color indicator */}
-                  {currentColor && (
-                    <p className="mt-3 text-sm text-gray-600">
-                      Selected: <span className="font-medium">{currentColor.name}</span>
-                    </p>
-                  )}
-                </motion.div>
-              )}
 
               {/* Everything is Customizable */}
               <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
