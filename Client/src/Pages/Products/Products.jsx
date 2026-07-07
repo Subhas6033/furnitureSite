@@ -9,22 +9,6 @@ import {
 } from "../../Animations/Animations";
 import { products, getAllCategories } from "../../Data/products";
 
-// Star Rating Component
-const StarRating = ({ rating }) => (
-  <div className="flex items-center gap-0.5">
-    {[...Array(5)].map((_, i) => (
-      <svg
-        key={i}
-        className={`w-4 h-4 ${i < Math.floor(rating) ? "text-amber-400" : "text-slate-200"}`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
-    ))}
-  </div>
-);
-
 const Products = () => {
   const navigate = useNavigate();
   const categories = getAllCategories();
@@ -51,10 +35,6 @@ const Products = () => {
     if (activeCategory === "All") return products;
     return products.filter((p) => p.category === activeCategory);
   }, [activeCategory]);
-
-  const calculateDiscount = (originalPrice, currentPrice) => {
-    return Math.round(((originalPrice - currentPrice) / originalPrice) * 100);
-  };
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -261,48 +241,10 @@ const Products = () => {
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     />
 
-                    {/* Discount Badge */}
-                    {product.originalPrice > product.price && (
-                      <motion.span
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 + index * 0.05 }}
-                        className="absolute top-3 left-3 bg-brand-accent text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg"
-                      >
-                        {calculateDiscount(
-                          product.originalPrice,
-                          product.price,
-                        )}
-                        % OFF
-                      </motion.span>
-                    )}
-
-                    {/* Tag Badge */}
-                    {product.tag && (
-                      <span className="absolute top-3 right-3 bg-brand-primary text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg">
-                        {product.tag}
-                      </span>
-                    )}
-
-                    {/* Wishlist Button */}
-                    <button
-                      className="absolute top-3 right-3 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 shadow-lg"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <svg
-                        className="w-5 h-5 text-slate-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                        />
-                      </svg>
-                    </button>
+                    {/* Everything is Customizable Badge */}
+                    <span className="absolute top-3 left-3 bg-brand-primary text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-lg">
+                      Everything is Customizable
+                    </span>
 
                     {/* Hover Overlay */}
                     <motion.div
@@ -339,22 +281,6 @@ const Products = () => {
                     <h3 className="text-slate-900 font-medium text-lg group-hover:text-brand-primary transition-colors duration-300 line-clamp-1">
                       {product.name}
                     </h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-slate-900 font-bold text-xl">
-                        ${product.price.toLocaleString()}
-                      </span>
-                      {product.originalPrice > product.price && (
-                        <span className="text-slate-400 line-through text-sm">
-                          ${product.originalPrice.toLocaleString()}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-3 pt-1">
-                      <StarRating rating={product.rating} />
-                      <span className="text-slate-400 text-sm">
-                        {product.rating} ({product.reviews})
-                      </span>
-                    </div>
                   </div>
                 </motion.div>
               ))}

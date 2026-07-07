@@ -52,9 +52,8 @@ const ProductDetails = () => {
   const product = getProductById(productId);
 
   // State for managing view mode and selections
-  const [activeView, setActiveView] = useState("front");
+  const [activeView, setActiveView] = useState("detail");
   const [selectedColor, setSelectedColor] = useState(null);
-  const [quantity, setQuantity] = useState(1);
 
   // Initialize selected color when product loads
   useEffect(() => {
@@ -85,18 +84,22 @@ const ProductDetails = () => {
   // Initialize selected color with first available color
   const currentColor = selectedColor || product.colors?.[0] || null;
 
-  // Calculate discount percentage
-  const discountPercent = Math.round(
-    ((product.originalPrice - product.price) / product.originalPrice) * 100,
-  );
-
-  // Get current image index based on active view
-  const getCurrentImageIndex = () => {
-    const index = viewAngles.findIndex((v) => v.id === activeView);
-    return index >= 0 ? index : 0;
+  // Map view IDs to their array index positions
+  // viewAngles array: [detail, front, side, back, 3d]
+  const viewToImageIndex = {
+    detail: 0,
+    front: 1,
+    side: 2,
+    back: 3,
   };
 
-  const currentImage = product.images?.[getCurrentImageIndex()] || product.images?.[0];
+  // Get product images array - ensure it's an array
+  const productImagesArray = Array.isArray(product.images) ? product.images : [];
+
+  // Get current image based on active view
+  const currentImage = activeView === "3d"
+    ? null
+    : (productImagesArray[viewToImageIndex[activeView]] || productImagesArray[0]);
 
   return (
     <motion.div
@@ -181,30 +184,37 @@ const ProductDetails = () => {
                 )}
               </AnimatePresence>
 
-              {/* Discount Badge */}
-              {discountPercent > 0 && (
-                <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-[#ff3f3f] text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium">
-                  {discountPercent}% OFF
-                </div>
-              )}
+              {/* Everything is Customizable Badge */}
+              <div className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-[#123326] text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium">
+                Everything is Customizable
+              </div>
             </motion.div>
 
             {/* View Angle Thumbnails - Text only, no icons */}
             <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
-              {viewAngles.map((angle) => (
-                <button
-                  key={angle.id}
-                  onClick={() => setActiveView(angle.id)}
-                  className={`shrink-0 px-3 sm:px-4 py-2 rounded-lg transition-all text-sm font-medium ${
-                    activeView === angle.id
-                      ? "bg-[#123326] text-white"
-                      : "bg-[#f5f5f5] text-gray-600 hover:bg-[#e8e8e8]"
-                  }`}
-                  aria-pressed={activeView === angle.id}
-                >
-                  {angle.label}
-                </button>
-              ))}
+              {viewAngles.map((angle) => {
+                // Check if this view has an image (skip for 3D)
+                const imageIndex = viewToImageIndex[angle.id];
+                const hasImage = angle.id === "3d" || (productImagesArray[imageIndex] && productImagesArray[imageIndex].trim() !== "");
+
+                // Don't render if no image and not 3D
+                if (!hasImage && angle.id !== "3d") return null;
+
+                return (
+                  <button
+                    key={angle.id}
+                    onClick={() => setActiveView(angle.id)}
+                    className={`shrink-0 px-3 sm:px-4 py-2 rounded-lg transition-all text-sm font-medium ${
+                      activeView === angle.id
+                        ? "bg-[#123326] text-white"
+                        : "bg-[#f5f5f5] text-gray-600 hover:bg-[#e8e8e8]"
+                    }`}
+                    aria-pressed={activeView === angle.id}
+                  >
+                    {angle.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -238,22 +248,6 @@ const ProductDetails = () => {
                 <span className="text-gray-300 hidden sm:inline" aria-hidden="true">|</span>
                 <span className="text-green-600 font-medium text-sm">
                   {product.inStock ? "In Stock" : "Out of Stock"}
-                </span>
-              </motion.div>
-
-              {/* Price Section */}
-              <motion.div
-                variants={fadeUp}
-                className="flex flex-wrap items-baseline gap-2 sm:gap-3 mb-5 sm:mb-6"
-              >
-                <span className="text-2xl sm:text-3xl font-bold text-[#1a1a1a]">
-                  ${product.price.toLocaleString()}
-                </span>
-                <span className="text-base sm:text-lg text-gray-500 line-through">
-                  ${product.originalPrice.toLocaleString()}
-                </span>
-                <span className="text-green-600 font-medium text-sm">
-                  Save ${(product.originalPrice - product.price).toLocaleString()}
                 </span>
               </motion.div>
 
@@ -295,30 +289,11 @@ const ProductDetails = () => {
                 </motion.div>
               )}
 
-              {/* Quantity Selection */}
+              {/* Everything is Customizable */}
               <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
-                <h3 className="text-sm font-medium text-gray-700 mb-3">
-                  Quantity:
-                </h3>
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors text-lg font-medium"
-                    aria-label="Decrease quantity"
-                  >
-                    -
-                  </button>
-                  <span className="text-xl font-medium w-8 sm:w-12 text-center" aria-live="polite">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors text-lg font-medium"
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
-                </div>
+                <span className="inline-block bg-[#123326] text-white text-sm font-medium px-4 py-2 rounded-full">
+                  Everything is Customizable
+                </span>
               </motion.div>
 
               {/* Product Description */}
@@ -329,24 +304,6 @@ const ProductDetails = () => {
                 <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   {product.description}
                 </p>
-              </motion.div>
-
-              {/* Features */}
-              <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
-                <h3 className="text-base sm:text-lg font-semibold text-[#1a1a1a] mb-3">
-                  Key Features
-                </h3>
-                <ul className="space-y-2">
-                  {product.features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-start gap-2 text-gray-600 text-sm sm:text-base"
-                    >
-                      <span className="text-green-500 mt-0.5" aria-hidden="true">✓</span>
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
 
               {/* Specifications */}
@@ -370,15 +327,6 @@ const ProductDetails = () => {
                   )}
                 </div>
               </motion.div>
-
-              {/* Promotional Tag */}
-              {product.tag && (
-                <motion.div variants={fadeUp} className="mt-5 sm:mt-6">
-                  <span className="inline-block bg-[#a97c2f] text-white text-sm font-medium px-4 py-2 rounded-full">
-                    {product.tag}
-                  </span>
-                </motion.div>
-              )}
             </motion.div>
           </div>
         </div>

@@ -1,103 +1,119 @@
 /**
  * Product Data
  *
- * This file contains all product data for the e-commerce platform.
+ * This file contains all product data for the furniture store.
  * Each product includes multiple images for different view angles,
  * 3D model configuration, specifications, and other details.
- *
- * Why: Centralized product data allows easy management and sharing
- * between Homepage and Product Details page.
  */
 
-// Product images organized by view angle (like Flipkart)
+// Product images - using L-Shaped/Corner Sofa images for all products
 const productImages = {
-  milano: [
-    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop", // Front view
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop", // Side view
-    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop", // Back view
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop", // Detail view
+  lShapedSofa: [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
   ],
-  oslo: [
-    "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=800&auto=format&fit=crop", // Front view
-    "https://images.unsplash.com/photo-1577140917170-285929fb55b7?q=80&w=800&auto=format&fit=crop", // Side view
-    "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=800&auto=format&fit=crop", // Top view
-    "https://images.unsplash.com/photo-1615066390971-03e4e1c36d28?q=80&w=800&auto=format&fit=crop", // Detail view
+  threeSeater: [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
   ],
-  copenhagen: [
-    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=800&auto=format&fit=crop", // Front view
-    "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=800&auto=format&fit=crop", // Side view
-    "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=800&auto=format&fit=crop", // Back view
-    "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?q=80&w=800&auto=format&fit=crop", // Detail view
+  twoSeater: [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
   ],
-  stockholm: [
-    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=800&auto=format&fit=crop", // Front view
-    "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=800&auto=format&fit=crop", // Side view
-    "https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?q=80&w=800&auto=format&fit=crop", // Back view
-    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop", // Detail view
+  sofaSet: [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+  ],
+  centreTable: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783418532/centerTableDetails_gdijci.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783418797/centerTableFront_g2ma2y.png",
+  ],
+  woodenTable: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783419368/woodenTableDetails_gfbvy8.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783419422/woodenTableFront_ch688w.png",
+  ],
+  marbleTable: [
+    "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1499933374294-4584856e5c6b?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+  ],
+  chesterfieldTable: [
+    "https://images.unsplash.com/photo-1532372320572-cda25653a26d?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1611269154421-4e27233ac5c7?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1499933374294-4584856e5c6b?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
+  ],
+  curtains: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783416968/curtainsDetail_jaqeuz.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783417038/curtainsSide_alq7nr.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783417038/curtainsSide_alq7nr.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783417219/curtainsDetail_tt9boa.jpg",
+  ],
+  blinds: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783417279/blindsDetails_qm3znn.png",
+  ],
+  poufs: [
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1550254478-ead40cc54513?q=80&w=800&auto=format&fit=crop",
+  ],
+  ottomans: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783416607/ottomansSide_b8e17p.png",
+    "",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
   ],
 };
 
 /**
  * View angle labels for product images
- * Similar to how Flipkart shows different angles
  */
 export const viewAngles = [
-  { id: "front", label: "Front View", icon: "👁️" },
-  { id: "side", label: "Side View", icon: "↗️" },
-  { id: "back", label: "Back View", icon: "🔄" },
-  { id: "detail", label: "Detail", icon: "🔍" },
-  { id: "3d", label: "3D View", icon: "🎲" },
+  { id: "detail", label: "Detail" },
+  { id: "front", label: "Front View" },
+  { id: "side", label: "Side View" },
+  { id: "back", label: "Back View" },
+  { id: "3d", label: "3D View" },
 ];
 
 /**
  * All products data
- * Each product has:
- * - id: unique identifier
- * - name: product name
- * - category: product category
- * - price: product price
- * - originalPrice: price before discount (for showing deals)
- * - images: array of images for different view angles
- * - description: product description
- * - specifications: detailed specifications
- * - features: product features
- * - colors: available color options
- * - rating: product rating
- * - reviews: number of reviews
- * - inStock: stock status
- * - tag: promotional tag
- * - model3d: 3D model configuration (type of primitive to render)
  */
 export const products = [
   {
-    id: "milano-leather-sofa",
-    name: "Milano Leather Sofa",
+    id: "l-shaped-sofa",
+    name: "L-Shaped / Corner Sofa",
     category: "Sofas",
     price: 2499,
     originalPrice: 3299,
-    images: productImages.milano,
-    description: "Experience the pinnacle of Italian craftsmanship with our Milano Leather Sofa. Made from premium full-grain leather, this sofa combines timeless elegance with exceptional comfort. The deep cushioning and sturdy wooden frame ensure lasting durability, while the sleek modern design adds sophistication to any living space.",
+    images: productImages.lShapedSofa,
+    description:
+      "Perfect for modern living spaces, our L-shaped sofas maximize seating while adding a stylish focal point to your home. Available in various layouts, fabrics, colours, and sizes, each sofa is custom-built to fit your requirements.",
     specifications: {
-      "Dimensions": "220cm x 90cm x 85cm",
-      "Material": "Premium Full-Grain Leather",
-      "Frame": "Kiln-dried Hardwood",
-      "Cushion": "High-density Foam",
+      "Available Sizes": "Customizable",
+      Material: "Premium Fabric/Leather",
+      "Frame Type": "Kiln-dried Hardwood",
+      Cushioning: "High-density Foam",
       "Weight Capacity": "350 kg",
-      "Color": "Cognac Brown",
-      "Warranty": "10 Years",
+      "Delivery Time": "4-6 Weeks",
+      Warranty: "10 Years",
     },
-    features: [
-      "Premium Italian full-grain leather",
-      "Stain-resistant and easy to clean",
-      "Removable cushion covers",
-      "Solid hardwood frame with reinforcement",
-      "High-density foam for optimal comfort",
-    ],
     colors: [
-      { name: "Cognac Brown", hex: "#8B4513" },
-      { name: "Charcoal Black", hex: "#36454F" },
-      { name: "Cream White", hex: "#FFFDD0" },
+      { name: "Charcoal Grey", hex: "#36454F" },
       { name: "Navy Blue", hex: "#000080" },
+      { name: "Beige", hex: "#F5F5DC" },
+      { name: "Emerald Green", hex: "#50C878" },
+      { name: "Burgundy", hex: "#800020" },
     ],
     rating: 4.8,
     reviews: 245,
@@ -106,110 +122,334 @@ export const products = [
     model3d: "sofa",
   },
   {
-    id: "oslo-extendable-table",
-    name: "Oslo Extendable Table",
-    category: "Dining",
-    price: 1299,
-    originalPrice: 1599,
-    images: productImages.oslo,
-    description: "The Oslo Extendable Dining Table is a masterpiece of Scandinavian design. Crafted from solid oak wood with a natural finish, it brings warmth and elegance to your dining area. The clever extension mechanism allows you to accommodate extra guests effortlessly.",
+    id: "3-seater-sofa",
+    name: "3-Seater Sofa",
+    category: "Sofas",
+    price: 1899,
+    originalPrice: 2499,
+    images: productImages.threeSeater,
+    description:
+      "A perfect blend of comfort and elegance, our 3-seater sofas are ideal for everyday living. Customize the fabric, colour, dimensions, and cushioning to create a sofa that matches your home's style.",
     specifications: {
-      "Dimensions": "160-240cm x 90cm x 75cm",
-      "Material": "Solid Oak Wood",
-      "Finish": "Natural Matte",
-      "Extension": "80cm (adds 4 seats)",
-      "Seating Capacity": "6-10 persons",
-      "Weight Capacity": "100 kg",
-      "Warranty": "5 Years",
+      "Available Sizes": "Customizable",
+      Material: "Premium Fabric/Leather",
+      "Frame Type": "Kiln-dried Hardwood",
+      Cushioning: "High-density Foam",
+      "Weight Capacity": "300 kg",
+      "Delivery Time": "4-6 Weeks",
+      Warranty: "10 Years",
     },
-    features: [
-      "Solid oak wood construction",
-      "Smooth glide extension mechanism",
-      "Self-storing leaves included",
-      "Scratch-resistant finish",
-      "Eco-friendly materials",
-    ],
     colors: [
-      { name: "Natural Oak", hex: "#D4A574" },
-      { name: "Walnut Stain", hex: "#5C4033" },
-      { name: "White Wash", hex: "#F5F5F5" },
+      { name: "Light Grey", hex: "#D3D3D3" },
+      { name: "Navy Blue", hex: "#000080" },
+      { name: "Cream", hex: "#FFFDD0" },
+      { name: "Teal", hex: "#008080" },
     ],
-    rating: 4.6,
+    rating: 4.7,
     reviews: 189,
     inStock: true,
-    tag: "New",
-    model3d: "table",
+    tag: "Popular",
+    model3d: "sofa",
   },
   {
-    id: "copenhagen-armchair",
-    name: "Copenhagen Armchair",
-    category: "Seating",
-    price: 899,
-    originalPrice: 1199,
-    images: productImages.copenhagen,
-    description: "Sink into comfort with the Copenhagen Armchair. This mid-century modern masterpiece features ergonomic design with proper lumbar support, upholstered in premium velvet fabric. The solid walnut legs add a touch of sophistication to this already stunning piece.",
+    id: "2-seater-sofa",
+    name: "2-Seater Sofa",
+    category: "Sofas",
+    price: 1299,
+    originalPrice: 1799,
+    images: productImages.twoSeater,
+    description:
+      "Designed for compact spaces without compromising on comfort, our 2-seater sofas offer a stylish seating solution. Available in a wide range of colours, fabrics, and custom sizes.",
     specifications: {
-      "Dimensions": "78cm x 82cm x 95cm",
-      "Material": "Premium Velvet Fabric",
-      "Frame": "Solid Walnut Wood",
-      "Cushion": "Memory Foam",
-      "Weight Capacity": "150 kg",
-      "Color": "Forest Green",
-      "Warranty": "7 Years",
+      "Available Sizes": "Customizable",
+      Material: "Premium Fabric/Leather",
+      "Frame Type": "Kiln-dried Hardwood",
+      Cushioning: "High-density Foam",
+      "Weight Capacity": "200 kg",
+      "Delivery Time": "3-5 Weeks",
+      Warranty: "10 Years",
     },
-    features: [
-      "Ergonomic design with lumbar support",
-      "Premium velvet upholstery",
-      "Stain-resistant coating",
-      "Solid walnut wood legs",
-      "360-degree swivel option",
-    ],
     colors: [
-      { name: "Forest Green", hex: "#228B22" },
-      { name: "Dusty Rose", hex: "#D4A5A5" },
-      { name: "Midnight Blue", hex: "#191970" },
       { name: "Mustard Yellow", hex: "#FFDB58" },
+      { name: "Dusty Rose", hex: "#D4A5A5" },
+      { name: "Olive Green", hex: "#808000" },
+      { name: "Slate Blue", hex: "#6A5ACD" },
     ],
     rating: 4.9,
     reviews: 312,
     inStock: true,
     tag: null,
-    model3d: "chair",
+    model3d: "sofa",
   },
   {
-    id: "stockholm-bed-frame",
-    name: "Stockholm Bed Frame",
-    category: "Bedroom",
-    price: 1899,
-    originalPrice: 2499,
-    images: productImages.stockholm,
-    description: "The Stockholm Bed Frame is the centerpiece of any modern bedroom. Crafted from solid pine wood with a sleek platform design, it provides both style and functionality. The hidden storage compartments are perfect for storing extra bedding and linens.",
+    id: "3-1-1-sofa-set",
+    name: "3+1+1 Sofa Set",
+    category: "Sofas",
+    price: 3499,
+    originalPrice: 4599,
+    images: productImages.sofaSet,
+    description:
+      "Create a complete living room with our customizable 3+1+1 sofa sets. Designed for both comfort and sophistication, every set can be personalized with your preferred fabric, colour, size, and finishing.",
     specifications: {
-      "Dimensions": "210cm x 190cm x 120cm",
-      "Material": "Solid Pine Wood",
-      "Finish": "Matte Black",
-      "Mattress Size": "King (180cm x 200cm)",
-      "Storage": "Under-bed drawers",
-      "Weight Capacity": "300 kg",
-      "Warranty": "10 Years",
+      "Set Includes": "1 Three-seater, 1 Single-seater, 1 Chair",
+      Material: "Premium Fabric/Leather",
+      "Frame Type": "Kiln-dried Hardwood",
+      Cushioning: "High-density Foam",
+      "Weight Capacity": "500 kg",
+      "Delivery Time": "5-7 Weeks",
+      Warranty: "10 Years",
     },
-    features: [
-      "Solid pine wood construction",
-      "Built-in storage drawers",
-      "No box spring required",
-      "Easy assembly",
-      "Adjustable headboard height",
-    ],
     colors: [
-      { name: "Matte Black", hex: "#28282B" },
-      { name: "White Oak", hex: "#E8DCC4" },
-      { name: "Walnut", hex: "#5C4033" },
+      { name: "Coffee Brown", hex: "#6F4E37" },
+      { name: "Charcoal Grey", hex: "#36454F" },
+      { name: "Ivory", hex: "#FFFFF0" },
+      { name: "Forest Green", hex: "#228B22" },
     ],
-    rating: 4.7,
+    rating: 4.6,
     reviews: 156,
     inStock: true,
-    tag: "Featured",
-    model3d: "bed",
+    tag: "Complete Set",
+    model3d: "sofa",
+  },
+  {
+    id: "centre-table",
+    name: "Centre Table",
+    category: "Tables",
+    price: 799,
+    originalPrice: 1099,
+    images: productImages.centreTable,
+    description:
+      "Enhance your living room with beautifully crafted centre tables that combine style and functionality. Choose from wooden tops, marble tops, and elegant Chesterfield-inspired designs, available in various finishes to complement your décor.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      "Top Material": "Wood/Marble/Glass",
+      "Base Type": "Metal/Wood",
+      Height: "45-50 cm",
+      "Delivery Time": "3-5 Weeks",
+      Warranty: "5 Years",
+    },
+    colors: [
+      { name: "Natural Wood", hex: "#DEB887" },
+      { name: "White Marble", hex: "#F0F0F0" },
+      { name: "Black Glass", hex: "#1C1C1C" },
+      { name: "Walnut", hex: "#5C4033" },
+    ],
+    rating: 4.5,
+    reviews: 98,
+    inStock: true,
+    tag: null,
+    model3d: "table",
+  },
+  {
+    id: "wooden-top-centre-table",
+    name: "Wooden Top Centre Table",
+    category: "Tables",
+    price: 899,
+    originalPrice: 1199,
+    images: productImages.woodenTable,
+    description:
+      "Bring warmth and natural charm to your home with our wooden top centre tables. Built with quality craftsmanship, they offer durability, timeless appeal, and a premium finish.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      "Top Material": "Solid Wood",
+      "Wood Type": "Sheesham/Teak/Oak",
+      "Base Type": "Metal/Wood",
+      Height: "45-50 cm",
+      "Delivery Time": "3-5 Weeks",
+      Warranty: "7 Years",
+    },
+    colors: [
+      { name: "Honey Oak", hex: "#EB9605" },
+      { name: "Walnut", hex: "#5C4033" },
+      { name: "Natural Sheesham", hex: "#C19A6B" },
+      { name: "Matte Black", hex: "#28282B" },
+    ],
+    rating: 4.7,
+    reviews: 124,
+    inStock: true,
+    tag: "Natural",
+    model3d: "table",
+  },
+  {
+    id: "marble-top-centre-table",
+    name: "Marble Top Centre Table",
+    category: "Tables",
+    price: 1499,
+    originalPrice: 1999,
+    images: productImages.marbleTable,
+    description:
+      "Add a touch of luxury with our marble top centre tables. Their elegant design and premium finish make them the perfect centrepiece for modern and classic interiors alike.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      "Top Material": "Natural Marble",
+      "Marble Types": "White/Grey/Green/Black",
+      "Base Type": "Metal/Wood",
+      Height: "45-50 cm",
+      "Delivery Time": "4-6 Weeks",
+      Warranty: "10 Years",
+    },
+    colors: [
+      { name: "White Marble", hex: "#F5F5F5" },
+      { name: "Grey Marble", hex: "#808080" },
+      { name: "Green Marble", hex: "#50C878" },
+      { name: "Black Marble", hex: "#1C1C1C" },
+    ],
+    rating: 4.8,
+    reviews: 87,
+    inStock: true,
+    tag: "Luxury",
+    model3d: "table",
+  },
+  {
+    id: "chesterfield-centre-table",
+    name: "Chesterfield Centre Table",
+    category: "Tables",
+    price: 1199,
+    originalPrice: 1599,
+    images: productImages.chesterfieldTable,
+    description:
+      "Inspired by classic craftsmanship, our Chesterfield-style centre tables feature sophisticated detailing that elevates any living space with timeless elegance.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      "Top Material": "Leather/Wood",
+      Style: "Classic Chesterfield",
+      "Base Type": "Wooden Frame",
+      Height: "45-50 cm",
+      "Delivery Time": "4-6 Weeks",
+      Warranty: "7 Years",
+    },
+    colors: [
+      { name: "Cognac Brown", hex: "#8B4513" },
+      { name: "Deep Burgundy", hex: "#800020" },
+      { name: "Navy Blue", hex: "#000080" },
+      { name: "Forest Green", hex: "#228B22" },
+    ],
+    rating: 4.9,
+    reviews: 64,
+    inStock: true,
+    tag: "Classic",
+    model3d: "table",
+  },
+  {
+    id: "curtains",
+    name: "Curtains",
+    category: "Curtains",
+    price: 399,
+    originalPrice: 599,
+    images: productImages.curtains,
+    description:
+      "Complete your interiors with our premium collection of custom-made curtains. From blackout and sheer curtains to printed and solid designs, we offer a wide variety of styles, fabrics, colours, and sizes. We also provide curtain tracks and channels for a complete installation solution.",
+    specifications: {
+      "Available Types": "Plain/Eyelet/Printed/Solid/Blackout/Sheer",
+      "Fabric Options": "Cotton/Silk/Polyester/Linen",
+      Size: "Custom Made",
+      Mounting: "Rod/Pole/Track",
+      "Delivery Time": "2-3 Weeks",
+      Warranty: "2 Years",
+    },
+    colors: [
+      { name: "Pure White", hex: "#FFFFFF" },
+      { name: "Ivory", hex: "#FFFFF0" },
+      { name: "Charcoal", hex: "#36454F" },
+      { name: "Navy", hex: "#000080" },
+      { name: "Sage Green", hex: "#9DC183" },
+      { name: "Blush Pink", hex: "#DE5D83" },
+    ],
+    rating: 4.6,
+    reviews: 234,
+    inStock: true,
+    tag: "Complete Range",
+    model3d: "curtain",
+  },
+  {
+    id: "blinds",
+    name: "Blinds",
+    category: "Blinds",
+    price: 499,
+    originalPrice: 699,
+    images: productImages.blinds,
+    description:
+      "Our custom-made blinds combine functionality with contemporary style. Available in Zebra, Wooden, Roman, and Roller designs, every blind is made to your exact size with a wide selection of colours and finishes.",
+    specifications: {
+      "Available Types": "Zebra/Wooden/Roman/Roller",
+      Material: "Fabric/Wood/Aluminum",
+      Size: "Custom Made",
+      Operation: "Manual/Motorized",
+      "Delivery Time": "2-3 Weeks",
+      Warranty: "3 Years",
+    },
+    colors: [
+      { name: "Pure White", hex: "#FFFFFF" },
+      { name: "Natural Wood", hex: "#DEB887" },
+      { name: "Charcoal", hex: "#36454F" },
+      { name: "Cream", hex: "#FFFDD0" },
+      { name: "Slate Grey", hex: "#708090" },
+    ],
+    rating: 4.7,
+    reviews: 187,
+    inStock: true,
+    tag: "Trending",
+    model3d: "blinds",
+  },
+  {
+    id: "poufs",
+    name: "Poufs",
+    category: "Accessories",
+    price: 299,
+    originalPrice: 449,
+    images: productImages.poufs,
+    description:
+      "Our handcrafted poufs provide comfortable extra seating while adding texture and style to your space. Available in multiple fabrics, colours, and customizable designs.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      Material: "Fabric/Leather",
+      "Fill Type": "High-density Foam",
+      Shape: "Round/Square/Oval",
+      "Delivery Time": "2-3 Weeks",
+      Warranty: "3 Years",
+    },
+    colors: [
+      { name: "Terracotta", hex: "#E2725B" },
+      { name: "Mustard", hex: "#FFDB58" },
+      { name: "Teal", hex: "#008080" },
+      { name: "Grey", hex: "#808080" },
+      { name: "Burgundy", hex: "#800020" },
+    ],
+    rating: 4.8,
+    reviews: 145,
+    inStock: true,
+    tag: "Handcrafted",
+    model3d: "pouf",
+  },
+  {
+    id: "ottomans",
+    name: "Ottomans",
+    category: "Accessories",
+    price: 449,
+    originalPrice: 599,
+    images: productImages.ottomans,
+    description:
+      "Stylish and versatile, our ottomans can be used as seating, footrests, or accent furniture. Choose from a wide range of fabrics, colours, and sizes to perfectly match your interiors.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      Material: "Fabric/Leather",
+      "Fill Type": "High-density Foam",
+      Storage: "With/Without Storage",
+      "Delivery Time": "2-4 Weeks",
+      Warranty: "5 Years",
+    },
+    colors: [
+      { name: "Navy Blue", hex: "#000080" },
+      { name: "Emerald", hex: "#50C878" },
+      { name: "Camel", hex: "#C19A6B" },
+      { name: "Charcoal", hex: "#36454F" },
+      { name: "Ivory", hex: "#FFFFF0" },
+    ],
+    rating: 4.7,
+    reviews: 98,
+    inStock: true,
+    tag: "Versatile",
+    model3d: "ottoman",
   },
 ];
 

@@ -298,7 +298,7 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="h-[400px] bg-slate-100 relative overflow-hidden">
+      <section className="h-100 bg-slate-100 relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center bg-slate-200">
           <div className="text-center">
             <svg

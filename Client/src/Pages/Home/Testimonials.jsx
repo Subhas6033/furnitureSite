@@ -1,37 +1,91 @@
 import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import { staggerContainer, fadeUp } from "../../Animations/Animations";
 
 const testimonials = [
   {
-    name: "Sarah Mitchell",
+    name: "Priya Sharma",
     role: "Interior Designer",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
+      "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&w=150&h=150&fit=crop",
     quote:
       "The quality of Entity Furnitures furniture is unmatched. My clients absolutely love the pieces I've sourced from them. Truly exceptional craftsmanship.",
     rating: 5,
   },
   {
-    name: "James Richardson",
+    name: "Rahul Verma",
     role: "Homeowner",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop",
+      "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&w=150&h=150&fit=crop",
     quote:
       "We furnished our entire living room from Entity Furnitures. The delivery was seamless and the pieces look even better in person than on the website.",
     rating: 5,
   },
   {
-    name: "Emily Chen",
+    name: "Ananya Patel",
     role: "Architecture Professional",
     image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop",
+      "https://images.pexels.com/photos/1239288/pexels-photo-1239288.jpeg?auto=compress&w=150&h=150&fit=crop",
     quote:
       "As an architect, I'm very particular about the furniture I specify. Entity Furnitures consistently delivers pieces that exceed my expectations.",
+    rating: 5,
+  },
+  {
+    name: "Vikram Singh",
+    role: "Business Owner",
+    image:
+      "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&w=150&h=150&fit=crop",
+    quote:
+      "The custom furniture for my office space has transformed the entire ambience. Your team truly understands design excellence.",
+    rating: 5,
+  },
+  {
+    name: "Meera Krishnan",
+    role: "Homeowner",
+    image:
+      "https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg?auto=compress&w=150&h=150&fit=crop",
+    quote:
+      "Amazing experience from start to finish. The furniture quality is outstanding and the customization options are endless.",
+    rating: 5,
+  },
+  {
+    name: "Arjun Nair",
+    role: "Interior Designer",
+    image:
+      "https://images.pexels.com/photos/1933556/pexels-photo-1933556.jpeg?auto=compress&w=150&h=150&fit=crop",
+    quote:
+      "I've recommended Entity Furnitures to all my clients. The attention to detail and build quality is simply phenomenal.",
     rating: 5,
   },
 ];
 
 const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const intervalRef = useRef(null);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 3000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 3000);
+  };
+
   return (
     <section className="py-20 md:py-28 bg-slate-900 relative overflow-hidden">
       {/* Background Patterns */}
@@ -94,64 +148,66 @@ const Testimonials = () => {
           </motion.p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer(0.1, 0.1)}
-        >
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              variants={fadeUp}
-              custom={index}
-              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-brand-accent/30 transition-all duration-300"
-            >
-              {/* Quote Icon */}
-              <svg
-                className="w-10 h-10 text-brand-accent/30 mb-4"
-                fill="currentColor"
-                viewBox="0 0 24 24"
+        {/* Auto-scrolling Testimonials Carousel */}
+        <div className="relative overflow-hidden">
+          {/* Testimonial Cards */}
+          <motion.div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * (100 / 3)}%)`,
+            }}
+          >
+            {[...testimonials, ...testimonials].map((testimonial, index) => (
+              <motion.div
+                key={`${testimonial.name}-${index}`}
+                className="w-full md:w-1/3 flex-shrink-0 px-3"
               >
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-
-              {/* Stars */}
-              <div className="flex gap-1 mb-5">
-                {[...Array(testimonial.rating)].map((_, i) => (
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10 hover:border-brand-accent/30 transition-all duration-300 h-full">
+                  {/* Quote Icon */}
                   <svg
-                    key={i}
-                    className="w-5 h-5 text-brand-accent"
+                    className="w-10 h-10 text-brand-accent/30 mb-4"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 24 24"
                   >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                   </svg>
-                ))}
-              </div>
 
-              {/* Quote */}
-              <blockquote className="text-slate-300 text-lg leading-relaxed mb-6">
-                "{testimonial.quote}"
-              </blockquote>
+                  {/* Stars */}
+                  <div className="flex gap-1 mb-5">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <svg
+                        key={i}
+                        className="w-5 h-5 text-brand-accent"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
 
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/30"
-                />
-                <div>
-                  <p className="text-white font-medium">{testimonial.name}</p>
-                  <p className="text-slate-500 text-sm">{testimonial.role}</p>
+                  {/* Quote */}
+                  <blockquote className="text-slate-300 text-lg leading-relaxed mb-6">
+                    "{testimonial.quote}"
+                  </blockquote>
+
+                  {/* Author */}
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/30"
+                    />
+                    <div>
+                      <p className="text-white font-medium">{testimonial.name}</p>
+                      <p className="text-slate-500 text-sm">{testimonial.role}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Navigation Dots */}
         <motion.div
@@ -160,10 +216,13 @@ const Testimonials = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          {[0, 1, 2].map((i) => (
+          {testimonials.map((_, i) => (
             <button
               key={i}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? "w-8 bg-brand-accent" : "bg-white/30 hover:bg-white/50"}`}
+              onClick={() => handleDotClick(i)}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === currentIndex ? "w-8 bg-brand-accent" : "bg-white/30 hover:bg-white/50"
+              }`}
             />
           ))}
         </motion.div>
