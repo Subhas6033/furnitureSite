@@ -95,13 +95,13 @@ const productImages = {
 /**
  * View angle labels for product images
  */
-export const viewAngles = [
-  { id: "detail", label: "Detail" },
-  { id: "front", label: "Front View" },
-  { id: "side", label: "Side View" },
-  { id: "back", label: "Back View" },
-  { id: "3d", label: "3D View" },
-];
+// export const viewAngles = [
+//   { id: "detail", label: "Detail" },
+//   { id: "front", label: "Front View" },
+//   { id: "side", label: "Side View" },
+//   { id: "back", label: "Back View" },
+//   { id: "3d", label: "3D View" },
+// ];
 
 /**
  * All products data
