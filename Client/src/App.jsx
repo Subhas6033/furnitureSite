@@ -1,11 +1,8 @@
-import React from "react";
+import { Outlet } from "react-router-dom";
+import Layout from "./Layout/Layout";
 
 const App = () => {
-  return (
-    <div className="text-center font-extrabold text-5xl text-red-500 underline decoration-wavy">
-      App
-    </div>
-  );
+  return <Layout />;
 };
 
 export default App;
