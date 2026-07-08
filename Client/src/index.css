@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+@theme {
+  /* ── Brand colors ── change here, updates everywhere ── */
+  --color-brand-primary: #2a6b7c;
+  --color-brand-primary-hover: #235f6e;
+  --color-brand-primary-light: #e8f4f7;
+  --color-brand-accent: #e8734a;
+  --color-brand-accent-hover: #d4623a;
+
+  /* Nav surfaces */
+  --color-brand-nav-bg: rgba(255, 255, 255, 0.95);
+  --color-brand-overlay: rgba(255, 255, 255, 0.1);
+  --color-brand-border-glass: rgba(255, 255, 255, 0.3);
+
+  /* Footer surfaces */
+  --color-brand-footer-bg: #0c2c3c;
+  --color-brand-footer-surface: #173f4f;
+  --color-brand-footer-border: rgba(255, 255, 255, 0.08);
+  --color-brand-footer-text: #a8c4cc;
+  --color-brand-footer-text-hover: #ffffff;
+  --color-brand-footer-heading: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #1a1a1a;
+}
+
+/* Hides the Scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Global cursor pointer for all clickable elements */
+button,
+a,
+[role="button"],
+[tabindex="0"] {
+  cursor: pointer;
+}
+
+/* Ensure elements with cursor:pointer don't have disabled cursor */
+button:disabled,
+a:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
