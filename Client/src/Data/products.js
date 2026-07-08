@@ -15,7 +15,7 @@ const productImages = {
     "https://res.cloudinary.com/developersubhas/image/upload/v1783424540/threeTwo_aqabvr.png",
   ],
   twoSeater: [
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783539546/F5F2870D-F6C5-42E2-9B58-508435591B54_y2l8ur.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783539542/7EC8A5C6-4363-4386-8D8E-74CD3DB656EF_vqcude.png",
   ],
   sofaSet: [
     "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?q=80&w=800&auto=format&fit=crop",
