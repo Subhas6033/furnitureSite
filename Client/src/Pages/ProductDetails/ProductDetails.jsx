@@ -20,6 +20,9 @@ const ProductDetails = () => {
   // Get all product images as a flat array
   const productImagesArray = product?.images?.filter(img => img && img.trim() !== "") || [];
   const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedColor, setSelectedColor] = useState(
+    product?.colors?.[0] || null
+  );
 
   // Redirect to home if product not found
   if (!product) {

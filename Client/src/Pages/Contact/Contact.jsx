@@ -46,7 +46,8 @@ const socialLinks = [
 const contactInfo = [
   {
     title: "Visit Our Showroom",
-    description: "123 Furniture Lane, Portland, OR 97201",
+    description:
+      "1st floor, Unit t: 13, 14 Ground Floor & Unit: 101 & 102, Bhawanipore 18, Ashutosh Mukherjee Rd, Jadubabur Bazar, Bhowanipore, Kolkata, West Bengal 700025",
     icon: (
       <svg
         className="w-6 h-6"
@@ -90,7 +91,7 @@ const contactInfo = [
   },
   {
     title: "Email Us",
-    description: "hello@amaraandoak.com",
+    description: "entityfurniture2006@gmail.com",
     icon: (
       <svg
         className="w-6 h-6"
@@ -298,30 +299,19 @@ const Contact = () => {
       </section>
 
       {/* Map Section */}
-      <section className="h-100 bg-slate-100 relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center bg-slate-200">
-          <div className="text-center">
-            <svg
-              className="w-16 h-16 text-slate-400 mx-auto mb-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1}
-                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-            <p className="text-slate-500">Interactive map coming soon</p>
-          </div>
+      <section className="py-0 bg-slate-100">
+        <div className="w-full h-112.5 md:h-125">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.146509310262!2d88.34352947517337!3d22.5361838795176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02773f02dba4c1%3A0x1aaf990d5c689c57!2sEntity%20Furniture!5e0!3m2!1sen!2sin!4v1783532619330!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            title="Entity Furniture Location"
+            className="w-full h-full"
+          />
         </div>
       </section>
 

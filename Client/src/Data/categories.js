@@ -12,15 +12,17 @@ import { products } from "./products";
  */
 const categoryImages = {
   Sofas:
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783531007/sofa_ym5twc.png",
   Tables:
-    "https://images.unsplash.com/photo-1617806118233-18e1de247200?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783418532/centerTableDetails_gdijci.png",
   Curtains:
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416968/curtainsDetail_jaqeuz.png",
   Blinds:
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417279/blindsDetails_qm3znn.png",
   Accessories:
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
+  Chairs:
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783531290/chairs_ptwlmq.png",
 };
 
 /**

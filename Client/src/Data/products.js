@@ -60,26 +60,41 @@ const productImages = {
   ],
   curtains: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416968/curtainsDetail_jaqeuz.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535031/file_000000008bf471fab248a57df9213db5_isfuq2.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417038/curtainsSide_alq7nr.jpg",
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783424028/curtaneTwo_snwhml.jpg",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417219/curtainsDetail_tt9boa.jpg",
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtaneFour_l42kwn.jpg",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtaneThree_glnwbi.jpg",
-    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtainOne_ejqss1.jpg",
   ],
   blinds: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783417279/blindsDetails_qm3znn.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783534355/blinds_qj0gjr.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783534466/blindsD_uaetvp.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783534509/file_00000000d8d071fa8bd9efae08a522eb_ufdfnt.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783534557/f_grei3u.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783534623/d_yagttf.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtainOne_ejqss1.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424028/curtaneTwo_snwhml.jpg",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783424029/curtaneFour_l42kwn.jpg",
   ],
   poufs: [
-    "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1763616828225-95befdfddc0c?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1550226891-ef816aed4a98?q=80&w=800&auto=format&fit=crop",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535389/file_00000000b1587207b6d594f740b09af8_uubekr.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535387/file_00000000fcb871faabb70ae5df573911_gnuln0.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535382/file_00000000ed3c7208aa2b962a678fa02d_zlufrk.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535384/file_0000000005fc7207916b24e2a3718115_okut8n.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535374/file_00000000537071fa9c612e715e71107e_suen45.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535381/file_000000008a7c71f88f61c2577a861cf7_zbj42t.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535386/file_00000000c78471fd8473a9bc571c7692_jnfqzf.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535383/file_0000000008a472309e7656c451ccb24c_vsmr5m.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535369/file_00000000630471fd9c84a02eb35e3ce1_rodxml.png",
   ],
   ottomans: [
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416508/ottomansFront_ekeyqx.png",
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783535676/file_00000000c35c71fa8d33b3be639a5f4d_nbalr4.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783416607/ottomansSide_b8e17p.png",
     "https://res.cloudinary.com/developersubhas/image/upload/v1783424182/otto_gxlkoq.png",
+  ],
+  chairs: [
+    "https://res.cloudinary.com/developersubhas/image/upload/v1783531290/chairs_ptwlmq.png",
   ],
 };
 
@@ -128,6 +143,7 @@ export const products = [
     inStock: true,
     tag: "Best Seller",
     model3d: "sofa",
+    featured: true,
   },
   {
     id: "3-seater-sofa",
@@ -158,6 +174,7 @@ export const products = [
     inStock: true,
     tag: "Popular",
     model3d: "sofa",
+    featured: true,
   },
   {
     id: "2-seater-sofa",
@@ -247,6 +264,7 @@ export const products = [
     inStock: true,
     tag: null,
     model3d: "table",
+    featured: true,
   },
   {
     id: "wooden-top-centre-table",
@@ -368,6 +386,7 @@ export const products = [
     inStock: true,
     tag: "Complete Range",
     model3d: "curtain",
+    featured: true,
   },
   {
     id: "blinds",
@@ -398,6 +417,7 @@ export const products = [
     inStock: true,
     tag: "Trending",
     model3d: "blinds",
+    featured: true,
   },
   {
     id: "poufs",
@@ -458,6 +478,38 @@ export const products = [
     inStock: true,
     tag: "Versatile",
     model3d: "ottoman",
+    featured: true,
+  },
+  {
+    id: "premium-chairs",
+    name: "Chairs",
+    category: "Chairs",
+    price: 449,
+    originalPrice: 599,
+    images: productImages.chairs,
+    description:
+      "Stylish and versatile, our ottomans can be used as seating, footrests, or accent furniture. Choose from a wide range of fabrics, colours, and sizes to perfectly match your interiors.",
+    specifications: {
+      "Available Sizes": "Customizable",
+      Material: "Fabric/Leather",
+      "Fill Type": "High-density Foam",
+      Storage: "With/Without Storage",
+      "Delivery Time": "2-4 Weeks",
+      Warranty: "5 Years",
+    },
+    colors: [
+      { name: "Navy Blue", hex: "#000080" },
+      { name: "Emerald", hex: "#50C878" },
+      { name: "Camel", hex: "#C19A6B" },
+      { name: "Charcoal", hex: "#36454F" },
+      { name: "Ivory", hex: "#FFFFF0" },
+    ],
+    rating: 4.7,
+    reviews: 98,
+    inStock: true,
+    tag: "Versatile",
+    model3d: "ottoman",
+    featured: true,
   },
 ];
 
@@ -485,4 +537,12 @@ export const getProductsByCategory = (category) => {
  */
 export const getAllCategories = () => {
   return [...new Set(products.map((product) => product.category))];
+};
+
+/**
+ * Get featured products
+ * @returns {array} Array of featured products
+ */
+export const getFeaturedProducts = () => {
+  return products.filter((product) => product.featured === true);
 };

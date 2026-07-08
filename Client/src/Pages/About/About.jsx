@@ -351,6 +351,57 @@ const About = () => {
         </div>
       </section>
 
+      {/* Video Section */}
+      <section className="py-20 md:py-28 bg-linear-to-br from-stone-50 via-slate-50 to-stone-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-12 md:mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer(0.1, 0.1)}
+          >
+            <motion.span
+              variants={fadeUp}
+              className="inline-block text-sm font-semibold tracking-[0.25em] uppercase text-brand-accent mb-4"
+            >
+              Our Craft in Action
+            </motion.span>
+            <motion.h2
+              variants={fadeUp}
+              className="text-3xl md:text-4xl lg:text-5xl font-serif text-slate-900 mb-5"
+            >
+              Watch Our Story Come to Life
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-slate-600 text-lg max-w-2xl mx-auto"
+            >
+              Experience the passion and precision that goes into every piece we
+              create.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative rounded-3xl overflow-hidden shadow-2xl bg-slate-900"
+          >
+            <div className="relative pb-[56.25%] h-0">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="./ENTITY.mp4"
+                title="Entity Furnitures - Crafting Comfort, Creating Legacy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Values Section */}
       <section className="py-20 md:py-28 bg-linear-to-br from-stone-50 via-slate-50 to-stone-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

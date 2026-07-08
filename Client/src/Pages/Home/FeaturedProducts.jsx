@@ -2,12 +2,13 @@ import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { staggerContainer, fadeUp } from "../../Animations/Animations";
-import { products } from "../../Data/products";
+import { products, getFeaturedProducts } from "../../Data/products";
 
 const FeaturedProducts = () => {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const featuredProducts = getFeaturedProducts();
 
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
@@ -77,7 +78,7 @@ const FeaturedProducts = () => {
           viewport={{ once: true }}
           variants={staggerContainer(0.1, 0.1)}
         >
-          {products.map((product, index) => (
+          {featuredProducts.map((product, index) => (
             <motion.div
               key={product.id}
               variants={fadeUp}
