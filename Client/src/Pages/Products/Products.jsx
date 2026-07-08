@@ -234,7 +234,7 @@ const Products = () => {
                   <div className="relative overflow-hidden rounded-2xl mb-4 bg-linear-to-br from-slate-100 to-slate-50 aspect-4/5 shadow-sm hover:shadow-xl transition-shadow duration-300">
                     {/* Product Image */}
                     <motion.img
-                      src={product.images[0]}
+                      src={(product.images && product.images[0]) || "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop"}
                       alt={product.name}
                       className="w-full h-full object-cover"
                       whileHover={{ scale: 1.08 }}

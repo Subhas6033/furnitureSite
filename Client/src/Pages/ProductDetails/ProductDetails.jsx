@@ -5,6 +5,19 @@ import { getProductById } from "../../Data/products";
 import { staggerContainer, fadeUp } from "../../Animations/Animations";
 
 /**
+ * Check if a color is light (for determining checkmark color)
+ */
+const isLightColor = (hex) => {
+  // Convert hex to RGB
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  // Calculate brightness (perceived luminance)
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 128;
+};
+
+/**
  * ProductDetails Component
  *
  * Displays product information with a simple photo gallery.
@@ -17,12 +30,35 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const product = getProductById(productId);
 
-  // Get all product images as a flat array
-  const productImagesArray = product?.images?.filter(img => img && img.trim() !== "") || [];
-  const [activeIndex, setActiveIndex] = useState(0);
+  // State for selected color
   const [selectedColor, setSelectedColor] = useState(
-    product?.colors?.[0] || null
+    product?.colors && product.colors.length > 0 ? product.colors[0] : null
   );
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Handle color change - reset to first image
+  const handleColorChange = (color) => {
+    setSelectedColor(color);
+    setActiveIndex(0);
+  };
+
+  // Get images based on selected color
+  const getProductImages = () => {
+    if (!product) return [];
+
+    // If product has color-specific images and a color is selected
+    if (product.colorImages && selectedColor) {
+      const colorImageArray = product.colorImages[selectedColor.name];
+      if (colorImageArray && colorImageArray.length > 0) {
+        return colorImageArray.filter(img => img && img.trim() !== "");
+      }
+    }
+
+    // Fall back to default images
+    return product?.images?.filter(img => img && img.trim() !== "") || [];
+  };
+
+  const productImagesArray = getProductImages();
 
   // Redirect to home if product not found
   if (!product) {
@@ -202,6 +238,63 @@ const ProductDetails = () => {
                   {product.description}
                 </p>
               </motion.div>
+
+              {/* Color Selection */}
+              {product.colors && product.colors.length > 0 && (
+                <motion.div variants={fadeUp} className="mb-5 sm:mb-6">
+                  <h3 className="text-base sm:text-lg font-semibold text-[#1a1a1a] mb-3">
+                    Choose Your Color
+                    {product.colorImages && (
+                      <span className="text-xs font-normal text-gray-500 ml-2">
+                        (images change based on color)
+                      </span>
+                    )}
+                  </h3>
+                  <div className="flex flex-wrap items-center gap-3">
+                    {product.colors.map((color, index) => (
+                      <button
+                        key={index}
+                        onClick={() => handleColorChange(color)}
+                        className={`group relative w-10 h-10 rounded-full transition-all duration-200 ${
+                          selectedColor?.name === color.name
+                            ? "ring-2 ring-offset-2 ring-[#123326] scale-110"
+                            : "hover:scale-110"
+                        }`}
+                        title={color.name}
+                        aria-label={`Select ${color.name} color`}
+                      >
+                        <span
+                          className="absolute inset-0.5 rounded-full border border-gray-200"
+                          style={{ backgroundColor: color.hex }}
+                        />
+                        {/* Checkmark for selected color */}
+                        {selectedColor?.name === color.name && (
+                          <span className="absolute inset-0 flex items-center justify-center">
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke={isLightColor(color.hex) ? "#1a1a1a" : "#ffffff"}
+                              strokeWidth={3}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  {selectedColor && (
+                    <p className="mt-2 text-sm text-gray-600">
+                      Selected: <span className="font-medium">{selectedColor.name}</span>
+                    </p>
+                  )}
+                </motion.div>
+              )}
 
               {/* Specifications */}
               <motion.div

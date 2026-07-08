@@ -89,7 +89,7 @@ const FeaturedProducts = () => {
               {/* Product Card Image */}
               <div className="relative overflow-hidden rounded-2xl mb-4 bg-linear-to-br from-slate-100 to-slate-50 aspect-4/5">
                 <motion.img
-                  src={product.images[0]}
+                  src={product.images && product.images[0]}
                   alt={product.name}
                   className="w-full h-full object-cover"
                   whileHover={{ scale: 1.08 }}

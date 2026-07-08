@@ -147,18 +147,49 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div style={{ borderTop: "1px solid var(--color-brand-footer-border)" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-xs">
-          <p>
-            © {new Date().getFullYear()} {import.meta.env.VITE_APP_NAME}. All
-            rights reserved.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-5 sm:py-6 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-3 text-xs">
+          {/* Left: Copyright */}
+          <p style={{ color: "var(--color-brand-footer-text)" }}>
+            © {new Date().getFullYear()}{" "}
+            <span className="font-medium">{import.meta.env.VITE_APP_NAME}</span>
+            . All rights reserved.
           </p>
+
+          {/* Center: Developer credit as a clickable pill */}
+          <Link
+            to="https://subhas.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+            style={{
+              borderColor: "var(--color-brand-footer-border)",
+              color: "var(--color-brand-footer-text)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color =
+                "var(--color-brand-footer-text-hover)";
+              e.currentTarget.style.borderColor =
+                "var(--color-brand-footer-text-hover)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--color-brand-footer-text)";
+              e.currentTarget.style.borderColor =
+                "var(--color-brand-footer-border)";
+            }}
+          >
+            <span>Crafted</span>
+            <span>by</span>
+            <span className="font-semibold">Subhas</span>
+          </Link>
+
+          {/* Right: Policy links */}
           <div className="flex flex-wrap gap-3 sm:gap-5 justify-center sm:justify-end">
             {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
               (link) => (
                 <Link
                   key={link}
                   to={`/${link.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="transition-colors"
+                  className="relative transition-colors after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 after:h-px after:bg-current after:transition-all after:duration-200 hover:after:w-full"
                   style={{ color: "var(--color-brand-footer-text)" }}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color =
