@@ -51,7 +51,7 @@ export function CurtainLoader({
 
           {/* ---------- Wooden rod + finials, spans the full width ---------- */}
           <div
-            className="absolute left-0 right-0 top-0 z-20 h-4 sm:h-5"
+            className="absolute left-0 right-0 top-0 z-20 h-4 sm:h-5 md:h-6 lg:h-7"
             style={{
               background:
                 "linear-gradient(180deg,#6b4a30 0%,#4a3220 45%,#2e1e12 100%)",
@@ -59,7 +59,7 @@ export function CurtainLoader({
             }}
           >
             <span
-              className="absolute -left-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full sm:h-8 sm:w-8"
+              className="absolute -left-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10"
               style={{
                 background:
                   "radial-gradient(circle at 35% 30%, #e6c27a, #a97c2f 60%, #6b4a1f 100%)",
@@ -67,7 +67,7 @@ export function CurtainLoader({
               }}
             />
             <span
-              className="absolute -right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full sm:h-8 sm:w-8"
+              className="absolute -right-2 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10"
               style={{
                 background:
                   "radial-gradient(circle at 35% 30%, #e6c27a, #a97c2f 60%, #6b4a1f 100%)",
@@ -94,24 +94,24 @@ export function CurtainLoader({
 
           {/* ---------- Brand mark on the seam, fades as curtains part ---------- */}
           <div
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 transition-opacity"
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 transition-opacity"
             style={{
               transitionDuration: `${Math.round(transitionMs * 0.5)}ms`,
               opacity: open ? 0 : 1,
             }}
           >
             <span
-              className="text-2xl tracking-[0.35em] text-[#f1e3c2] sm:text-3xl"
+              className="text-2xl tracking-[0.35em] text-[#f1e3c2] sm:text-3xl md:text-4xl lg:text-5xl"
               style={{ fontFamily: "'Playfair Display', serif" }}
             >
               ENTITY FURNITURES
             </span>
             <span
-              className="h-px w-16 bg-[#d4af6a]/70"
+              className="h-px w-16 sm:w-20 md:w-24 lg:w-32 bg-[#d4af6a]/70"
               style={{ boxShadow: "0 0 6px rgba(212,175,106,0.6)" }}
             />
             <span
-              className="text-[11px] uppercase tracking-[0.4em] text-[#d4af6a]/80"
+              className="text-[11px] uppercase tracking-[0.4em] text-[#d4af6a]/80 sm:text-xs md:text-sm lg:text-base"
               style={{ fontFamily: "'Jost', sans-serif" }}
             >
               Raising the curtain
@@ -148,7 +148,7 @@ function CurtainPanel({ side, open, durationMs }) {
 
   return (
     <div
-      className={`absolute top-3 bottom-0 z-20 w-1/2 sm:top-4 ${
+      className={`absolute top-3 bottom-0 z-20 w-1/2 sm:top-4 md:top-5 lg:top-6 ${
         isLeft ? "left-0 origin-left" : "right-0 origin-right"
       }`}
       style={{
@@ -187,14 +187,14 @@ function CurtainPanel({ side, open, durationMs }) {
         }}
       >
         <span
-          className="h-1.5 w-16 rounded-full sm:w-24"
+          className="h-1.5 w-16 rounded-full sm:w-24 md:w-28 lg:w-32"
           style={{
             background: "linear-gradient(180deg,#f1d089,#a9792f)",
             boxShadow: "0 1px 3px rgba(0,0,0,0.4)",
           }}
         />
         <span
-          className="mt-1 h-5 w-3 rounded-b-full"
+          className="mt-1 h-5 w-3 rounded-b-full md:h-6 md:w-3.5 lg:h-7 lg:w-4"
           style={{
             background: "linear-gradient(180deg,#e6c27a,#8a611f)",
             boxShadow: "0 2px 4px rgba(0,0,0,0.4)",
@@ -204,7 +204,7 @@ function CurtainPanel({ side, open, durationMs }) {
 
       {/* Bottom hem trim */}
       <span
-        className="absolute bottom-0 left-0 right-0 h-2"
+        className="absolute bottom-0 left-0 right-0 h-2 md:h-2.5 lg:h-3"
         style={{
           background:
             "repeating-linear-gradient(90deg,#d4af6a 0px,#d4af6a 3px,transparent 3px,transparent 9px)",
