@@ -392,11 +392,12 @@ const About = () => {
             <div className="relative pb-[56.25%] h-0">
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://m.youtube.com/watch?v=2dVDoO8Wtfk"
-                title="Entity Furnitures - Crafting Comfort, Creating Legacy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                src="https://www.youtube.com/embed/2dVDoO8Wtfk"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 allowFullScreen
-              />
+              ></iframe>
             </div>
           </motion.div>
         </div>
