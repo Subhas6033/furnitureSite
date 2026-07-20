@@ -294,8 +294,8 @@ const About = () => {
                 <p>
                   Entity Furnitures began in 2010 with a simple belief:
                   furniture should be more than functional—it should be art.
-                  Founded by siblings Emma and James Chen, our company started
-                  as a small workshop in Portland, Oregon.
+                  Founded by siblings Tarjinder and Ramandeep walia, our company
+                  started as a small workshop in Kolkata, West Bengal.
                 </p>
                 <p>
                   Drawing inspiration from their grandfather's furniture-making
