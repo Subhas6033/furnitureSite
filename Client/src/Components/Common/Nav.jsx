@@ -22,15 +22,7 @@ const Nav = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const [furnitureOpen, setFurnitureOpen] = useState(false);
-  const [showComingSoon, setShowComingSoon] = useState(false);
-  const [comingSoonFeature, setComingSoonFeature] = useState("");
   const location = useLocation();
-
-  const handleComingSoon = (feature) => {
-    setComingSoonFeature(feature);
-    setShowComingSoon(true);
-    setTimeout(() => setShowComingSoon(false), 3000);
-  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -70,10 +62,8 @@ const Nav = () => {
   const onDark = true;
 
   // Social links from environment
-  const whatsappUrl =
-    import.meta.env.VITE_WHATSAPP_URL || "https://wa.me/917338855577";
-  const instagramUrl =
-    import.meta.env.VITE_INSTAGRAM_URL || "https://www.instagram.com";
+  const whatsappUrl = import.meta.env.VITE_WHATSAPP_URL || "";
+  const instagramUrl = import.meta.env.VITE_INSTAGRAM_URL || "";
 
   return (
     <>
@@ -185,7 +175,7 @@ const Nav = () => {
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "transparent")
                 }
-                onClick={() => handleComingSoon("WhatsApp")}
+                onClick={() => window.open(whatsappUrl)}
               >
                 <WhatsAppIcon />
               </motion.button>
@@ -206,7 +196,7 @@ const Nav = () => {
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.backgroundColor = "transparent")
                 }
-                onClick={() => handleComingSoon("Instagram")}
+                onClick={() => window.open(instagramUrl)}
               >
                 <InstagramIcon />
               </motion.button>
@@ -301,7 +291,7 @@ const Nav = () => {
                   <motion.button
                     whileTap={buttonTap}
                     className="px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors flex items-center gap-2"
-                    onClick={() => handleComingSoon("WhatsApp")}
+                    onClick={() => window.open(whatsappUrl)}
                   >
                     <WhatsAppIcon />
                     <span className="text-sm">WhatsApp</span>
@@ -309,7 +299,7 @@ const Nav = () => {
                   <motion.button
                     whileTap={buttonTap}
                     className="px-4 py-2.5 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 transition-colors flex items-center gap-2"
-                    onClick={() => handleComingSoon("Instagram")}
+                    onClick={() => window.open(instagramUrl)}
                   >
                     <InstagramIcon />
                     <span className="text-sm">Instagram</span>
@@ -320,26 +310,6 @@ const Nav = () => {
           )}
         </AnimatePresence>
       </motion.header>
-
-      {/* Coming Soon Toast */}
-      <AnimatePresence>
-        {showComingSoon && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, x: "-50%" }}
-            animate={{ opacity: 1, y: 0, x: "-50%" }}
-            exit={{ opacity: 0, y: 50, x: "-50%" }}
-            className="fixed bottom-6 left-1/2 z-100 px-6 py-3 rounded-xl shadow-2xl"
-            style={{
-              backgroundColor: "var(--color-brand-primary)",
-              color: "white",
-            }}
-          >
-            <p className="text-sm font-medium">
-              {comingSoonFeature} - Coming Soon!
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 };
