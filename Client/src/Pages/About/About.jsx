@@ -294,21 +294,8 @@ const About = () => {
                 <p>
                   Entity Furnitures began in 2010 with a simple belief:
                   furniture should be more than functional—it should be art.
-                  Founded by siblings Tarjinder and Ramandeep walia, our company
-                  started as a small workshop in Kolkata, West Bengal.
-                </p>
-                <p>
-                  Drawing inspiration from their grandfather's furniture-making
-                  legacy, Emma and James combined traditional techniques with
-                  contemporary design, creating pieces that resonate with modern
-                  sensibilities while honoring the craft of the past.
-                </p>
-                <p>
-                  Today, we continue to handcraft each piece in our Oregon
-                  workshop, using sustainably sourced materials and time-honored
-                  methods. Every sofa, table, and chair that leaves our studio
-                  carries the weight of generations of expertise and the passion
-                  of our artisans.
+                  Founded by Tarjinder and Ramandeep walia, our company started
+                  as a small workshop in Kolkata, West Bengal.
                 </p>
               </motion.div>
             </motion.div>
