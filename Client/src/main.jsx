@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {Provider} from "react-redux"
 import "./index.css";
 import Layout from "./Layout/Layout";
 import Home from "./Pages/Home/Home";
@@ -10,8 +11,8 @@ import Products from "./Pages/Products/Products";
 import NotFound from "./Pages/NotFound/NotFound";
 import Contact from "./Pages/Contact/Contact";
 import { InitialLoader } from "./Components";
+import {store} from './Store/store'
 
-// Add more pages here as you build them
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,7 +35,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <InitialLoader>
+      <Provider store={store}>
       <RouterProvider router={router} />
+      </Provider>
     </InitialLoader>
   </StrictMode>,
 );
