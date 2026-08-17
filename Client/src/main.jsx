@@ -10,6 +10,8 @@ import ProductDetails from "./Pages/ProductDetails/ProductDetails";
 import Products from "./Pages/Products/Products";
 import NotFound from "./Pages/NotFound/NotFound";
 import Contact from "./Pages/Contact/Contact";
+import Admin from "./Admin/Admin";
+import AdminLogin from "./Admin/AdminLogin";
 import { InitialLoader } from "./Components";
 import {store} from './Store/store'
 
@@ -24,6 +26,8 @@ const router = createBrowserRouter([
       { path: "product/:productId", element: <ProductDetails /> },
       { path: "products", element: <Products /> },
       { path: "contact-us", element: <Contact /> },
+      { path: "admin", element: <Admin /> },
+      { path: "admin/login", element: <AdminLogin /> },
       // Catch-all route for 404
       { path: "*", element: <NotFound /> },
       // { path: "contact-us", element: <Contact /> },

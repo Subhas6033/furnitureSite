@@ -7,8 +7,7 @@ const reviewRouter = Router()
 
 reviewRouter
 .post("/", submitReview)
-.put("/:reviewid/accept", adminAuthMiddleware, updateReviewAcceptance)
+.put("/:reviewId/accept", adminAuthMiddleware, updateReviewAcceptance)
 .get("/", getReviews)
-
 
 export default reviewRouter

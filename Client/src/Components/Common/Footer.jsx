@@ -18,6 +18,7 @@ const Footer = () => {
       "Track Order",
       "Warranty",
       "Care Guide",
+      "Admin"
     ],
   };
 
