@@ -133,12 +133,12 @@ const loginAdmin = asyncHandler(async (req, res) => {
         .cookie("accessToken", accessToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "none",
         })
         .cookie("refreshToken", refreshToken, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "none",
         })
         .json(
             new APIRES(
