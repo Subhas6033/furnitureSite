@@ -3,10 +3,9 @@ import {
     APIERR,
     APIRES,
 } from "../Utils/helper.utils.js";
-
 import { sendMail } from "../Utils/mail.utils.js";
 import { Admin } from "../Models/admin.models.js";
-
+import {Review} from "../Models/review.models.js"
 
 const registerAdmin = asyncHandler(async (req, res) => {
     const {
@@ -84,9 +83,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
 });
 
 const loginAdmin = asyncHandler(async (req, res) => {
-
     const { email, password } = req.body;
-
     if (
         !email ||
         !password ||
@@ -98,42 +95,32 @@ const loginAdmin = asyncHandler(async (req, res) => {
             "Email and password are required"
         );
     }
-
     const normalizedEmail = email.trim().toLowerCase();
-
     const admin = await Admin
         .findOne({ email: normalizedEmail })
         .select("+password");
-
     if (!admin) {
         throw new APIERR(
             401,
             "Invalid email or password"
         );
     }
-
     const isPasswordValid =
         await admin.comparePassword(password);
-
     if (!isPasswordValid) {
         throw new APIERR(
             401,
             "Invalid email or password"
         );
     }
-
     const accessToken =
         admin.generateAccessToken();
-
     const refreshToken =
         admin.generateRefreshToken();
-
     admin.refreshToken = refreshToken;
-
     await admin.save({
         validateBeforeSave: false,
     });
-
     const loggedInAdmin = {
         _id: admin._id,
         userName: admin.userName,
@@ -319,10 +306,19 @@ const changePassword = asyncHandler(async (req, res) => {
     );
 });
 
+const getAllReviews = asyncHandler(async (req,res) => {
+    const reviews = await Review.find()
+    if(!reviews) {
+        throw new APIERR(404, "No Reviews Founds")
+    }
+
+    res.status(200).json(new APIRES(200, reviews, "Successfully fetched all the reviews"))
+})
 
 export {
     registerAdmin,
     loginAdmin,
     forgotPassword,
     changePassword,
+    getAllReviews
 };

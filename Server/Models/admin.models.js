@@ -66,28 +66,19 @@ const adminSchema = new Schema(
     }
 );
 
-adminSchema.pre("save", async function (next) {
-
+adminSchema.pre("save", async function () {
     // Don't hash password if it hasn't been modified
     if (!this.isModified("password")) {
-        return next();
+        return
     }
-
     try {
-
         const saltRounds = 12;
-
         this.password = await bcrypt.hash(
             this.password,
             saltRounds
         );
-
-        next();
-
     } catch (error) {
-
-        next(error);
-
+     console.log("Err While hashing the password")   
     }
 });
 
@@ -101,7 +92,6 @@ adminSchema.methods.comparePassword = async function (
 };
 
 adminSchema.methods.generateAccessToken = function () {
-
     return jwt.sign(
         {
             _id: this._id,
@@ -116,7 +106,6 @@ adminSchema.methods.generateAccessToken = function () {
 };
 
 adminSchema.methods.generateRefreshToken = function () {
-
     return jwt.sign(
         {
             _id: this._id,
@@ -127,6 +116,5 @@ adminSchema.methods.generateRefreshToken = function () {
         }
     );
 };
-
 
 export const Admin = model("Admin", adminSchema);

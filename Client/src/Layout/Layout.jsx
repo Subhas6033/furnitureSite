@@ -1,37 +1,33 @@
-import { Outlet } from "react-router-dom";
-import { Nav, Footer, ScrollToTop } from "../Components/index";
+import { Outlet, useLocation } from "react-router-dom";
+import {
+  Nav,
+  Footer,
+  ScrollToTop,
+} from "../Components/index";
+import AdminNav from "../Admin/AdminNav";
 
-/**
- * Layout Component
- *
- * Main layout wrapper that provides consistent structure across all pages.
- * Includes the navigation bar, main content area, and footer.
- *
- * The Outlet component renders the matched child route's element,
- * allowing for nested routing within this layout.
- *
- * @component
- * @example
- * <Layout>
- *   <Home />
- * </Layout>
- */
 const Layout = () => {
+  const { pathname } = useLocation();
+
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isAdminLoginRoute = pathname === "/admin/login";
+
+  const showAdminNav = isAdminRoute && !isAdminLoginRoute;
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Scroll to top on route change */}
       <ScrollToTop />
 
-      {/* Navigation Bar */}
-      <Nav />
+      {/* Navigation */}
+      {showAdminNav ? <AdminNav /> : !isAdminLoginRoute && <Nav />}
 
-      {/* Main Content Area - Renders the current route */}
+      {/* Main Content */}
       <main className="flex-1">
         <Outlet />
       </main>
 
-      {/* Footer */}
-      <Footer />
+      {/* Don't show footer on admin pages */}
+      {!isAdminRoute && <Footer />}
     </div>
   );
 };
