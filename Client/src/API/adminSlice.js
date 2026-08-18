@@ -9,7 +9,7 @@ export const loginAdmin = createAsyncThunk(
                 "/api/v1/admin/login",
                 loginData
             );
-            return data.response;
+            return data.data;
         } catch (error) {
             return rejectWithValue(
                 error.response?.data?.message ||
